@@ -1,0 +1,8 @@
+part = {
+	location = 0
+	localization = "START_SCREEN_CONVERTED"
+	
+	trigger = {
+		has_country_flag = converter_humans
+	}
+}

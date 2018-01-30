@@ -1,0 +1,180 @@
+converted_1_democratic = {
+	tile_resource_minerals_mult = -0.1
+	tile_resource_energy_mult = -0.1
+	tile_resource_physics_research_mult = -0.1
+	tile_resource_society_research_mult = -0.1
+	tile_resource_engineering_research_mult = -0.1
+	navy_size_mult = -0.1
+}
+
+converted_2_democratic = {
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+	navy_size_mult = -0.2
+}
+
+converted_3_democratic = {
+	tile_resource_minerals_mult = -0.3
+	tile_resource_energy_mult = -0.3
+	tile_resource_physics_research_mult = -0.3
+	tile_resource_society_research_mult = -0.3
+	tile_resource_engineering_research_mult = -0.3
+	navy_size_mult = -0.3
+}
+
+converted_4_democratic = {
+	tile_resource_minerals_mult = -0.5
+	tile_resource_energy_mult = -0.5
+	tile_resource_physics_research_mult = -0.5
+	tile_resource_society_research_mult = -0.5
+	tile_resource_engineering_research_mult = -0.5
+	navy_size_mult = -0.5
+}
+
+converted_1_communism = {
+	tile_resource_minerals_mult = -0.1
+	tile_resource_energy_mult = -0.1
+	tile_resource_physics_research_mult = -0.1
+	tile_resource_society_research_mult = -0.1
+	tile_resource_engineering_research_mult = -0.1
+	navy_size_mult = -0.1
+}
+
+converted_2_communism = {
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+	navy_size_mult = -0.2
+}
+
+converted_3_communism = {
+	tile_resource_minerals_mult = -0.3
+	tile_resource_energy_mult = -0.3
+	tile_resource_physics_research_mult = -0.3
+	tile_resource_society_research_mult = -0.3
+	tile_resource_engineering_research_mult = -0.3
+	navy_size_mult = -0.3
+}
+
+converted_4_communism = {
+	tile_resource_minerals_mult = -0.5
+	tile_resource_energy_mult = -0.5
+	tile_resource_physics_research_mult = -0.5
+	tile_resource_society_research_mult = -0.5
+	tile_resource_engineering_research_mult = -0.5
+	navy_size_mult = -0.5
+}
+
+converted_1_fascism = {
+	tile_resource_minerals_mult = -0.1
+	tile_resource_energy_mult = -0.1
+	tile_resource_physics_research_mult = -0.1
+	tile_resource_society_research_mult = -0.1
+	tile_resource_engineering_research_mult = -0.1
+	navy_size_mult = -0.1
+}
+
+converted_2_fascism = {
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+	navy_size_mult = -0.2
+}
+
+converted_3_fascism = {
+	tile_resource_minerals_mult = -0.3
+	tile_resource_energy_mult = -0.3
+	tile_resource_physics_research_mult = -0.3
+	tile_resource_society_research_mult = -0.3
+	tile_resource_engineering_research_mult = -0.3
+	navy_size_mult = -0.3
+}
+
+converted_4_fascism = {
+	tile_resource_minerals_mult = -0.5
+	tile_resource_energy_mult = -0.5
+	tile_resource_physics_research_mult = -0.5
+	tile_resource_society_research_mult = -0.5
+	tile_resource_engineering_research_mult = -0.5
+	navy_size_mult = -0.5
+}
+
+converted_1_neutrality = {
+	tile_resource_minerals_mult = -0.1
+	tile_resource_energy_mult = -0.1
+	tile_resource_physics_research_mult = -0.1
+	tile_resource_society_research_mult = -0.1
+	tile_resource_engineering_research_mult = -0.1
+	navy_size_mult = -0.1
+}
+
+converted_2_neutrality = {
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+	navy_size_mult = -0.2
+}
+
+converted_3_neutrality = {
+	tile_resource_minerals_mult = -0.3
+	tile_resource_energy_mult = -0.3
+	tile_resource_physics_research_mult = -0.3
+	tile_resource_society_research_mult = -0.3
+	tile_resource_engineering_research_mult = -0.3
+	navy_size_mult = -0.3
+}
+
+converted_4_neutrality = {
+	tile_resource_minerals_mult = -0.5
+	tile_resource_energy_mult = -0.5
+	tile_resource_physics_research_mult = -0.5
+	tile_resource_society_research_mult = -0.5
+	tile_resource_engineering_research_mult = -0.5
+	navy_size_mult = -0.5
+}
+
+converted_1_nuclear = {
+	tile_resource_minerals_mult = -0.1
+	tile_resource_energy_mult = -0.1
+	tile_resource_physics_research_mult = -0.1
+	tile_resource_society_research_mult = -0.1
+	tile_resource_engineering_research_mult = -0.1
+	navy_size_mult = -0.1
+}
+
+converted_2_nuclear = {
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+	navy_size_mult = -0.2
+}
+
+converted_3_nuclear = {
+	tile_resource_minerals_mult = -0.3
+	tile_resource_energy_mult = -0.3
+	tile_resource_physics_research_mult = -0.3
+	tile_resource_society_research_mult = -0.3
+	tile_resource_engineering_research_mult = -0.3
+	navy_size_mult = -0.3
+}
+
+converted_4_nuclear = {
+	tile_resource_minerals_mult = -0.5
+	tile_resource_energy_mult = -0.5
+	tile_resource_physics_research_mult = -0.5
+	tile_resource_society_research_mult = -0.5
+	tile_resource_engineering_research_mult = -0.5
+	navy_size_mult = -0.5
+}
+

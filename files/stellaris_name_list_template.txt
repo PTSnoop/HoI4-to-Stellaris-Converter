@@ -1,0 +1,84 @@
+&TAG&_names = {
+	randomized = yes
+
+	ship_names = {
+		generic = {
+			&SHIPNAMES&
+		}
+	}
+
+	fleet_names = {
+		sequential_name = "%O% Fleet"
+	}
+
+	### ARMIES
+	army_names = {
+		defense_army = {
+			sequential_name = "%O% Defensive Column"
+		}
+			
+		assault_army = {
+			sequential_name = "%O% Invader Column"
+		}
+		
+		slave_army = {
+			sequential_name = "%O% Correctional Column"
+		}
+		
+		clone_army = { 
+			sequential_name = "Molded Troops %R%"
+		}
+		
+		robotic_army = {
+			sequential_name = "Robotic Infantry %R%"
+		}
+
+		robotic_defense_army = {
+			sequential_name = "Robotic Protectors %R%"
+		}
+		
+		android_army = {
+			sequential_name = "Android Infantry %R%"
+		}
+
+		android_defense_army = {
+			sequential_name = "Android Protectors %R%"
+		}
+		
+		psionic_army = { 
+			sequential_name = "Psionic Infantry %R%"
+		}
+		
+		xenomorph_army = {
+			sequential_name = "Xenomorph Hive %R%"
+		}
+		
+		gene_warrior_army = {
+			sequential_name = "%O% Modified Troopers"
+		}
+	}
+
+	planet_names = {
+		generic = {
+			names = {
+				&PLANETNAMES&
+			}
+		}
+	}
+
+	character_names = {
+		default = {
+			full_names = {
+			}
+			first_names_male = {
+				&MALENAMES&
+			}
+			first_names_female = {
+				&FEMALENAMES&
+			}
+			second_names = {
+				&SURNAMES&
+			}
+		}
+	}
+}

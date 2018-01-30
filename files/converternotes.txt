@@ -1,0 +1,20 @@
+&EARTH_TYPE_FLAG& : nuclear_war , give_planet , un_bureaucracy
+&EARTH_OWNER_LONGTAG& : SOV_communism
+&EARTH_PC_TYPE& : pc_continental
+
+&OPINION_PENALTIES& : converter_events_opinionpenalty.txt repeated
+    &LONGTAG_OPINIONATED&
+    &LONGTAG_JUDGED&
+
+&PLANETS& : converter_events_planet.txt repeated
+    &PLANET_ID& : planet_1_1
+    &PLANET_SIZE_DELTA& : -2
+    &PLANET_PC_TYPE& : pc_continental
+    &OWNER_TAG& : SOV
+    &OWNER_LONGTAG& : SOV_communism
+    &ETHICS& : ethic = "ethic_xenophobe" \n ethic = "ethic_authoritarian" \n ethic = "ethic_materialist"
+    &AUTHORITY& : auth_dictatorial
+    &CIVICS& : civic = civic_police_state \n civic = civic_functional_architecture
+    &COLOUR& : red
+    &MODIFIER& : converted_2_nuclear
+    &NEW_HUMANS& : converter_events_newhuman.txt repeated

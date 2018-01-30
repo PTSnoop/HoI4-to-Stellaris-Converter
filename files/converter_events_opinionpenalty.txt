@@ -1,0 +1,7 @@
+        event_target:&LONGTAG_OPINIONATED& = {
+            add_opinion_modifier = {
+                who = event_target:&LONGTAG_JUDGED&
+                modifier = opinion_blew_up_the_planet
+            }
+        }
+

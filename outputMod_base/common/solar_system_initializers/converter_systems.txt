@@ -1,0 +1,622 @@
+converter_sol_system = {
+
+	class = "sc_g"
+	flags = { empire_home_system sol_system sol }
+	usage = custom_empire
+
+	name = "NAME_Sol"
+	
+	planet = {
+		name = "NAME_Sol"
+		class = "pc_g_star"
+		orbit_distance = 0
+		orbit_angle = 1
+		size = 30
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_Mercury"
+		class = "pc_molten"
+		orbit_distance = 40
+		orbit_angle = 15
+		size = 10
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_Venus"
+		class = "pc_toxic"
+		orbit_distance = 25
+		orbit_angle = 125
+		size = 20
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_Earth"
+		class = "pc_continental"
+		orbit_distance = 25
+		orbit_angle = 120
+		size = 16
+		starting_planet = yes
+		has_ring = no
+		entity = "continental_planet_earth_entity"
+		tile_blockers = none
+		modifiers = none
+		
+		init_effect = {
+			prevent_anomaly = yes
+		}
+		
+		init_effect = {
+			generate_start_buildings_and_blockers = yes			
+			random_country = {
+				limit = { has_country_flag = human_2 }
+				owner_species = { save_event_target_as = human_species }
+			}
+			create_country = {
+				name = "NAME_United_Nations_of_Earth"
+				authority = auth_democratic
+				civics = {
+					civic = civic_beacon_of_liberty
+					civic = civic_idealistic_foundation
+				}
+				species = event_target:human_species
+				name_list = "HUM3"
+				#ship_prefix = "UNS"
+				ethos = {
+					ethic = "ethic_xenophile"
+					ethic = "ethic_fanatic_egalitarian"
+				}
+				flag = {
+					icon = {
+						category = "human"
+						file = "flag_human_8.dds"
+					}
+					background = {
+						category = "backgrounds"
+						file = "00_solid.dds"
+					}
+					colors = {
+						"dark_blue"
+						"dark_blue"
+						"null"
+						"null"
+					}
+				}
+				type = default
+			}
+			while = {
+				count = 8
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_grown_pop = no
+						has_growing_pop = no
+						has_building = yes
+					}
+					create_pop = {
+						species = event_target:human_species
+					}
+				}
+			}
+			set_owner = last_created_country
+			create_spaceport = {
+				owner = last_created_country
+				initial_module = "missile_weapon"
+			}
+			last_created_country = { add_minerals = 300 }
+		}
+		
+		moon = {
+			name = "NAME_Luna"
+			class = "pc_barren_cold"
+			size = 5
+			orbit_distance = 12
+			orbit_angle = 40
+			has_ring = no
+			entity = "cold_barren_planet_luna_entity"
+		}
+	}
+	
+	planet = {
+		name = "NAME_Mars"
+		class = "pc_barren"
+		orbit_distance = 25
+		orbit_angle = 60
+		size = 13
+		has_ring = no
+		entity = "barren_planet_mars_entity"
+		
+		init_effect = {
+			add_modifier = {
+				modifier = "terraforming_candidate"
+				days = -1
+			}
+		}
+	}
+	
+	planet = {
+		name = "NAME_1_Ceres"
+		class = "pc_asteroid"
+		orbit_distance = 30
+		orbit_angle = -210
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_2_Pallas"
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -95
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_3_Juno"
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = 285
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_4_Vesta"
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_Jupiter"
+		class = "pc_gas_giant"
+		orbit_distance = 40
+		orbit_angle = -160
+		size = 35
+		has_ring = no
+		entity = "gas_giant_jupiter_entity"
+		change_orbit = 6
+		
+		moon = {
+			name = "NAME_Io"
+			class = "pc_molten"
+			size = 6
+			orbit_distance = 10
+			orbit_angle = 110
+			has_ring = no
+		}
+		moon = {
+			name = "NAME_Europa"
+			class = "pc_frozen"
+			size = 6
+			orbit_distance = 2.5
+			orbit_angle = 10
+			has_ring = no
+		}
+		moon = {
+			name = "NAME_Ganymede"
+			class = "pc_frozen"
+			size = 9
+			orbit_distance = 2.5
+			orbit_angle = 80
+			has_ring = no
+		}
+		moon = {
+			name = "NAME_Callisto"
+			class = "pc_frozen"
+			size = 7
+			orbit_distance = 2.5
+			orbit_angle = -155
+			has_ring = no
+		}
+	}
+	
+	planet = {
+		name = "NAME_Saturn"
+		class = "pc_gas_giant"
+		orbit_distance = 25
+		orbit_angle = 170
+		size = 30
+		has_ring = yes
+		entity = "gas_giant_05_entity"
+		change_orbit = 7
+		
+		moon = {
+			name = "NAME_Titan"
+			class = "pc_frozen"
+			size = 8
+			orbit_distance = 12
+			orbit_angle = 320
+			has_ring = no
+		}
+	}
+	
+	planet = {
+		name = "NAME_Uranus"
+		class = "pc_gas_giant"
+		orbit_distance = 25
+		orbit_angle = 125
+		size = 20
+		has_ring = no
+		entity = "gas_giant_03_entity"
+	}
+	
+	planet = {
+		name = "NAME_Neptune"
+		class = "pc_gas_giant"
+		orbit_distance = 25
+		orbit_angle = -195
+		size = 20
+		has_ring = no
+		entity = "gas_giant_02_entity"
+		change_orbit = 4
+		
+		moon = {
+			name = "NAME_Triton"
+			class = "pc_frozen"
+			size = 6
+			orbit_distance = 7
+			orbit_angle = 115
+			has_ring = no
+		}
+	}
+
+    neighbor_system = {
+        distance = { min = 70 max = 100 }
+        initializer = "branch_1"
+    }
+    neighbor_system = {
+        distance = { min = 70 max = 100 }
+        initializer = "branch_2"
+    }
+}
+
+branch_1 = {
+	class = "rl_standard_stars"
+	
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	
+	change_orbit = 45
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+
+    neighbor_system = {
+        distance = { min = 30 max = 100 }
+        initializer = "branch_1_1"
+    }
+    neighbor_system = {
+        distance = { min = 30 max = 100 }
+        initializer = "branch_1_2"
+    }
+    neighbor_system = {
+        distance = { min = 30 max = 100 }
+        initializer = "branch_1_3"
+    }
+}
+
+branch_2 = {
+	class = "rl_standard_stars"
+	
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	
+	change_orbit = 45
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+
+    neighbor_system = {
+        distance = { min = 30 max = 100 }
+        initializer = "branch_2_1"
+    }
+    neighbor_system = {
+        distance = { min = 30 max = 100 }
+        initializer = "branch_2_2"
+    }
+    neighbor_system = {
+        distance = { min = 30 max = 100 }
+        initializer = "branch_2_3"
+    }
+}
+
+#####
+
+branch_1_1 = {
+	#name = "Branch 1 1"
+	class = "rl_standard_stars"
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
+	planet = {
+		count = { min = 1 max = 2 }
+		orbit_distance = 40
+		orbit_angle = { min = 0 max = 359 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+
+	planet = {
+		#name = "Node"
+		class = ideal_planet_class
+        orbit_distance = 25
+        size = 16
+        starting_planet = yes
+        has_ring = no
+        #tile_blockers = none
+        modifiers = none
+        init_effect = {
+            prevent_anomaly = yes
+        }
+        flags = { planet_1_1 }
+	}
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+}
+
+branch_1_2 = {
+	#name = "Branch 1 2"
+	class = "rl_standard_stars"
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
+	planet = {
+		count = { min = 1 max = 2 }
+		orbit_distance = 40
+		orbit_angle = { min = 0 max = 359 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+
+	planet = {
+		#name = "Node"
+		class = ideal_planet_class
+        orbit_distance = 25
+        size = 16
+        starting_planet = yes
+        has_ring = no
+        #tile_blockers = none
+        modifiers = none
+        flags = { planet_1_2 }
+        init_effect = {
+            prevent_anomaly = yes
+        }
+	}
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+}
+
+branch_1_3 = {
+	#name = "Branch 1 3"
+	class = "rl_standard_stars"
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
+	planet = {
+		count = { min = 1 max = 2 }
+		orbit_distance = 40
+		orbit_angle = { min = 0 max = 359 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+
+	planet = {
+		#name = "Node"
+		class = ideal_planet_class
+        orbit_distance = 25
+        size = 16
+        starting_planet = yes
+        has_ring = no
+        #tile_blockers = none
+        modifiers = none
+        flags = { planet_1_3 }
+        init_effect = {
+            prevent_anomaly = yes
+        }
+	}
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+}
+
+branch_2_1 = {
+	#name = "Branch 2 1"
+	class = "rl_standard_stars"
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
+	planet = {
+		count = { min = 1 max = 2 }
+		orbit_distance = 40
+		orbit_angle = { min = 0 max = 359 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+
+	planet = {
+		#name = "Node"
+		class = ideal_planet_class
+        orbit_distance = 25
+        size = 16
+        starting_planet = yes
+        has_ring = no
+        #tile_blockers = none
+        modifiers = none
+        flags = { planet_2_1 }
+        init_effect = {
+            prevent_anomaly = yes
+        }
+	}
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+}
+
+branch_2_2 = {
+	#name = "Branch 2 2"
+	class = "rl_standard_stars"
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
+	planet = {
+		count = { min = 1 max = 2 }
+		orbit_distance = 40
+		orbit_angle = { min = 0 max = 359 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+
+	planet = {
+		#name = "Node"
+		class = ideal_planet_class
+        orbit_distance = 25
+        size = 16
+        starting_planet = yes
+        has_ring = no
+        #tile_blockers = none
+        modifiers = none
+        flags = { planet_2_2 }
+        init_effect = {
+            prevent_anomaly = yes
+        }
+	}
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+}
+
+branch_2_3 = {
+	#name = "Branch 2 3"
+	class = "rl_standard_stars"
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
+	planet = {
+		count = { min = 1 max = 2 }
+		orbit_distance = 40
+		orbit_angle = { min = 0 max = 359 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+
+	planet = {
+		#name = "Node"
+		class = ideal_planet_class
+        orbit_distance = 25
+        size = 16
+        starting_planet = yes
+        has_ring = no
+        #tile_blockers = none
+        modifiers = none
+        flags = { planet_2_3 }
+        init_effect = {
+            prevent_anomaly = yes
+        }
+	}
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+        class = rl_unhabitable_planets
+		
+		change_orbit = @base_moon_distance
+	}
+}

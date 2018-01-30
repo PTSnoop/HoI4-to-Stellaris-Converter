@@ -1,0 +1,72 @@
+converter_humans = {
+	name = "converter_humans"
+	adjective = "adjective_converter_humans"
+	spawn_enabled = no # yes / no / always
+    spawn_as_fallen = no
+	ignore_portrait_duplication = no
+	
+	ship_prefix = "ISS"
+	
+	species = {
+		class = "HUM"
+		portrait = "human"
+		name = "PRESCRIPTED_species_name_humans1"
+		plural = "PRESCRIPTED_species_plural_humans1"
+		adjective = "PRESCRIPTED_species_adjective_humans1"
+		name_list = "HUM3"
+		trait = "trait_adaptive"
+		trait = "trait_nomadic"
+		trait = "trait_wasteful"
+	}
+	
+	room = "personality_metalheads_room"
+	
+	authority = "auth_dictatorial"
+	civics = { "civic_shadow_council" "civic_efficient_bureaucracy" }
+	government = gov_irenic_dictatorship
+    advisor_voice_type="l_english"
+	
+	ethic = "ethic_xenophobe"
+	ethic = "ethic_fanatic_pacifist"
+
+	flags = { converter_humans custom_start_screen }
+	
+	weapon = "tech_missiles_1"
+	ftl = warp
+	
+	planet_name = "NAME_Earth"
+	planet_class = "pc_continental"
+	initializer = "converter_sol_system"
+	system_name = "NAME_Sol"
+	
+	graphical_culture = "mammalian_01"
+	city_graphical_culture = "mammalian_01"
+	
+	empire_flag = {
+		icon= {
+			category = "convertedflags"
+			file = "converter_logo.dds"
+		}
+		background= {
+			category = "backgrounds"
+			file = "00_solid.dds"
+		}
+		colors={
+			"black"
+			"black"
+			"null"
+			"null"
+		}
+	}
+	
+	ruler={
+		gender=male
+		name="Ignacio Ortega"
+		portrait="human_male_04"
+		texture=0
+		hair=43
+		clothes=4
+	}
+}
+
+

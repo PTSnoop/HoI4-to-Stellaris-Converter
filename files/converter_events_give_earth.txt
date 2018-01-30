@@ -1,0 +1,130 @@
+        create_country = {
+            name = NAME_&OWNER_LONGTAG&
+            species = root
+            name_list = "&OWNER_TAG&_names"
+            ethos = {
+                &ETHICS&
+            }
+            authority = &AUTHORITY&
+            civics = {
+                &CIVICS&
+            }
+            flag = {
+                icon = {
+                    category = "convertedflags"
+                    file = "&OWNER_LONGTAG&.dds"
+                }
+                background = {
+                    category = "backgrounds"
+                    file = "00_solid.dds"
+                }
+                colors = {
+                    "&COLOUR&"
+                    "&COLOUR&"
+                    "null"
+                    "null"
+                }
+                type = default
+                ftl = warp
+            }
+        }
+        last_created_country = {
+            name_list = "&OWNER_TAG&_names"
+            save_global_event_target_as = &OWNER_LONGTAG&
+            set_country_flag = &OWNER_LONGTAG&
+            add_modifier = {
+                modifier = "&MODIFIER&"
+                days = -1
+            }
+        }
+
+		home_planet = {
+			save_global_event_target_as = un_earth
+		}
+		destroy_country = yes
+		event_target:un_earth = {
+			create_colony = {
+				owner = last_created_country
+				species = ROOT
+			}
+            change_pc = &EARTH_PC_TYPE&
+			every_tile = {
+				limit = {
+					has_blocker = yes
+				}
+				remove_blocker = yes
+			}
+			random_tile = {
+				limit = { has_building = "building_colony_shelter" }
+				remove_building = yes
+			}
+			while = {
+				count = 3			
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_building = no
+						has_grown_pop = no
+					}
+					set_blocker = tb_decrepit_dwellings
+				}
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_building = no
+						has_grown_pop = no
+					}
+					set_blocker = tb_failing_infrastructure		
+				}				
+			}					
+			while = {
+				count = 7
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_grown_pop = no
+						has_growing_pop = no
+					}
+					create_pop = {
+						species = ROOT
+					}
+				}
+			}
+			while = {
+				count = 4
+				random_tile = {
+					limit = { 
+						has_blocker = no 
+						has_building = no 
+						has_grown_pop = yes
+					}
+					set_building = "building_primitive_factory"
+					set_deposit = d_mineral_deposit
+				}
+			}
+			while = {
+				count = 4
+				random_tile = {
+					limit = { 
+						has_blocker = no 
+						has_building = no 
+						has_grown_pop = yes
+					}
+					set_building = "building_primitive_farm"
+					set_deposit = d_farmland_deposit
+				}
+			}
+			last_created_country = {
+				capital_scope = { set_name = "Earth" }
+			}
+		}
+        create_spaceport = {
+            owner = last_created_country
+            initial_module = "projectile_weapon"
+        }
+        last_created_country = { 
+            add_minerals = &MINERALS& 
+            add_energy = &ENERGY&
+            add_food = &FOOD&
+            add_influence = &INFLUENCE&
+        }

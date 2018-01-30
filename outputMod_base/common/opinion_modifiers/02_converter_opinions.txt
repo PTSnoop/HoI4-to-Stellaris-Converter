@@ -1,0 +1,16 @@
+opinion_blew_up_the_planet = {
+    opinion = {
+        base = -100
+    }
+
+    decay = {
+        base = 1
+        modifier = {
+            add = 1
+            OR = {
+                has_ethic = "ethic_militarist"
+                has_ethic = "ethic_fanatic_militarist"
+            }
+        }
+    }
+}

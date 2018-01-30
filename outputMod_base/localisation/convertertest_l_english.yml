@@ -1,0 +1,34 @@
+﻿l_english:
+FLAG_CATEGORY_convertedflags:0 "Converted"
+adjective_converter_humans:0 "Converted"
+converter_humans:0 "Converted from HoI4"
+EMPIRE_DESIGN_converter_humans:0 "Converted from HoI4"
+
+converter.1.name:0 "A Divided Species"
+converter.1.desc:0 "It is the year 2200. Humanity is now a space-faring species, yet the species is still divided. The legacy of the old Earth nations continues, and the original exoplanet colonies cling to the heritage of the countries they set out from.\n\nWhich empire will you play as?"
+EMPIRE_DESIGN_converter_humans_desc:0 "Having settled its differences in the field of battle, humanity now looks towards the stars."
+
+opinion_blew_up_the_planet:0 "Blew up Planet Earth"
+
+converted_1_democratic:0 "Regulatory Capture"
+converted_2_democratic:0 "Pork-barrel Spending"
+converted_3_democratic:0 "Governmental Deadlock"
+converted_4_democratic:0 "Ochlocracy"
+converted_1_communism:0 "Reduced incentives"
+converted_2_communism:0 "Centralized economic planning"
+converted_3_communism:0 "Totalitarian economy"
+converted_4_communism:0 "Dictatorship of the Proletariat"
+converted_1_fascism:0 "Autarky"
+converted_2_fascism:0 "Political violence"
+converted_3_fascism:0 "Spirit of Nihilism"
+converted_4_fascism:0 "Reign of Tyranny"
+converted_1_neutrality:0 "Government Inefficiency"
+converted_2_neutrality:0 "Economic Apathy"
+converted_3_neutrality:0 "Governmental Corruption"
+converted_4_neutrality:0 "Heart of Neutrality"
+converted_1_nuclear:0 "Heritage of Nuclear War"
+converted_2_nuclear:0 "Survivors of Nuclear War"
+converted_3_nuclear:0 "Refugees from Nuclear War"
+converted_4_nuclear:0 "Devastated by Nuclear War"
+
+

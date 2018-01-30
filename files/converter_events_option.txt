@@ -1,0 +1,8 @@
+	option = {
+		name = "&LONGTAG&"
+		event_target:&LONGTAG& = {
+			set_player = ROOT
+		}
+	}
+
+

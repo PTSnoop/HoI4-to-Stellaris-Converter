@@ -1,0 +1,85 @@
+		every_planet = {
+			limit = { has_planet_flag = &PLANET_ID& }
+
+            change_planet_size = &PLANET_SIZE_DELTA&
+            change_pc = &PLANET_PC_TYPE&
+            reroll_planet = yes
+
+			create_country = {
+				name = NAME_&OWNER_LONGTAG&
+				species = root
+				name_list = "&OWNER_TAG&_names"
+				ethos = {
+                    &ETHICS&
+				}
+				authority = &AUTHORITY&
+				civics = {
+                    &CIVICS&
+				}
+				flag = {
+					icon = {
+						category = "convertedflags"
+						file = "&OWNER_LONGTAG&.dds"
+					}
+					background = {
+						category = "backgrounds"
+						file = "00_solid.dds"
+					}
+					colors = {
+                        "&COLOUR&"
+                        "&COLOUR&"
+						"null"
+						"null"
+					}
+					type = default
+					ftl = warp
+				}
+			}
+			last_created_country = {
+			    name_list = "&OWNER_TAG&_names"
+				save_global_event_target_as = &OWNER_LONGTAG&
+				set_country_flag = &OWNER_LONGTAG&
+                add_modifier = {
+                    modifier = "&MODIFIER&"
+                    days = -1
+                }
+			}
+
+			create_colony = {
+				owner = last_created_country
+				species = root
+				ethos = {
+                    &ETHICS&
+				}
+                name_list = "&OWNER_TAG&_names"
+			}
+			random_tile = {
+				limit = {
+					has_blocker = no
+					has_building = no
+					has_grown_pop = no
+					has_growing_pop = no
+				}
+				set_building = "building_hydroponics_farm_1"
+					create_pop = {
+                        species = root
+						ethos = owner
+					}
+			}
+
+&NEW_HUMANS&
+
+			create_spaceport = {
+				owner = last_created_country
+				initial_module = "projectile_weapon"
+			}
+
+			last_created_country = { 
+				add_minerals = &MINERALS& 
+				add_energy = &ENERGY&
+				add_food = &FOOD&
+				add_influence = &INFLUENCE&
+			}
+		}
+
+

@@ -1,0 +1,13 @@
+			random_tile = {
+				limit = {
+					has_blocker = no
+					has_building = no
+					has_grown_pop = no
+					has_growing_pop = no
+				}
+				create_pop = {
+                    species = root
+					ethos = owner
+				}
+			}
+

@@ -1,0 +1,481 @@
+namespace = converter
+
+country_event = {
+	id = converter.1
+	picture = GFX_evt_news_room
+	title = "converter.1.name"
+	desc = "converter.1.desc"
+	hide_window = no
+	fire_only_once = yes
+
+	trigger = {
+		has_country_flag = converter_humans
+	}
+	
+	immediate = {
+		set_country_flag = &EARTH_TYPE_FLAG&
+		#set_timed_country_flag = {
+        #   flag = but_not_yet
+        #   days = 2
+        #}
+
+&PLANETS&
+
+&OPINION_PENALTIES&
+	}
+
+&OPTIONS&
+}
+
+country_event = {
+	id = converter.2
+	picture = GFX_evt_desert
+	title = "Space"
+	desc = "Spaaaaaace."
+	hide_window = yes
+	fire_only_once = yes
+
+	trigger = { 
+        has_country_flag = give_planet 
+        NOT = {
+            has_country_flag = but_not_yet
+        }
+    }
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		home_planet = {
+			save_global_event_target_as = un_earth
+		}
+		destroy_country = yes
+		event_target:un_earth = {
+            #set_owner = event_target:&EARTH_OWNER_LONGTAG&
+			create_colony = {
+				owner = event_target:&EARTH_OWNER_LONGTAG&
+				species = ROOT
+			}
+            change_pc = &EARTH_PC_TYPE&
+			every_tile = {
+				limit = {
+					has_blocker = yes
+				}
+				remove_blocker = yes
+			}
+			random_tile = {
+				limit = { has_building = "building_colony_shelter" }
+				remove_building = yes
+			}
+			while = {
+				count = 3			
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_building = no
+						has_grown_pop = no
+					}
+					set_blocker = tb_decrepit_dwellings
+				}
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_building = no
+						has_grown_pop = no
+					}
+					set_blocker = tb_failing_infrastructure		
+				}				
+			}					
+			while = {
+				count = 7
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_grown_pop = no
+						has_growing_pop = no
+					}
+					create_pop = {
+						species = ROOT
+					}
+				}
+			}
+			while = {
+				count = 4
+				random_tile = {
+					limit = { 
+						has_blocker = no 
+						has_building = no 
+						has_grown_pop = yes
+					}
+					set_building = "building_primitive_factory"
+					set_deposit = d_mineral_deposit
+				}
+			}
+			while = {
+				count = 4
+				random_tile = {
+					limit = { 
+						has_blocker = no 
+						has_building = no 
+						has_grown_pop = yes
+					}
+					set_building = "building_primitive_farm"
+					set_deposit = d_farmland_deposit
+				}
+			}
+			last_created_country = {
+				capital_scope = { set_name = "Earth" }
+			}
+
+			create_spaceport = {
+				owner = last_created_country
+				initial_module = "projectile_weapon"
+			}
+		}
+        event_target:&EARTH_OWNER_LONGTAG& = {
+            capital_scope = {
+                set_planet_flag = was_never_there
+                #set_timed_country_flag = {
+                #   flag = but_not_yet
+                #   days = 1
+                #}
+            }
+        }
+	}
+}
+
+country_event = {
+	id = converter.3
+	picture = GFX_evt_desert
+	title = "Space"
+	desc = "Spaaaaaace."
+	hide_window = yes
+	fire_only_once = yes
+
+	trigger = { 
+        has_country_flag = give_planet 
+        NOT = {
+            has_country_flag = but_not_yet
+        }
+    }
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		home_planet = {
+			save_global_event_target_as = un_earth
+		}
+		destroy_country = yes
+		event_target:un_earth = {
+            #set_owner = event_target:&EARTH_OWNER_LONGTAG&
+			create_colony = {
+				owner = event_target:&EARTH_OWNER_LONGTAG&
+				species = ROOT
+			}
+            change_pc = &EARTH_PC_TYPE&
+			every_tile = {
+				limit = {
+					has_blocker = yes
+				}
+				remove_blocker = yes
+			}
+			random_tile = {
+				limit = { has_building = "building_colony_shelter" }
+				remove_building = yes
+			}
+			while = {
+				count = 3			
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_building = no
+						has_grown_pop = no
+					}
+					set_blocker = tb_decrepit_dwellings
+				}
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_building = no
+						has_grown_pop = no
+					}
+					set_blocker = tb_failing_infrastructure		
+				}				
+			}					
+			while = {
+				count = 7
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_grown_pop = no
+						has_growing_pop = no
+					}
+					create_pop = {
+						species = ROOT
+					}
+				}
+			}
+			while = {
+				count = 4
+				random_tile = {
+					limit = { 
+						has_blocker = no 
+						has_building = no 
+						has_grown_pop = yes
+					}
+					set_building = "building_primitive_factory"
+					set_deposit = d_mineral_deposit
+				}
+			}
+			while = {
+				count = 4
+				random_tile = {
+					limit = { 
+						has_blocker = no 
+						has_building = no 
+						has_grown_pop = yes
+					}
+					set_building = "building_primitive_farm"
+					set_deposit = d_farmland_deposit
+				}
+			}
+			last_created_country = {
+				capital_scope = { set_name = "Earth" }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = converter.4
+	picture = GFX_evt_desert
+	title = "Space"
+	desc = "Spaaaaaace."
+	hide_window = yes
+	fire_only_once = yes
+
+	trigger = { 
+        has_country_flag = un_bureaucracy 
+        NOT = {
+            has_country_flag = but_not_yet
+        }
+    }
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		home_planet = {
+			save_global_event_target_as = un_earth
+		}
+		destroy_country = yes
+		event_target:un_earth = {
+			create_country = {
+				name = random
+				authority = random
+				civics = {
+					civic = civic_increasing_urbanization
+					civic = civic_atmospheric_pollution
+				}
+				species = root
+				ethos = {
+					ethic = "ethic_xenophile"
+					ethic = "ethic_fanatic_egalitarian"			
+				}
+				flag = {
+					icon = {
+						category = "human"
+						file = "flag_human_9.dds"
+					}
+					background= {
+						category = "backgrounds"
+						file = "circle.dds"
+					}
+					colors={
+						"dark_blue"
+						"green"
+						"null"
+						"null"
+					}
+				}
+				type = primitive
+			}
+			last_created_country = {
+				set_graphical_culture = industrial_01
+				set_country_flag = early_space_age
+				set_country_flag = humans_early_space_age
+				set_primitive_age = early_space_age
+			}
+			create_colony = {
+				owner = last_created_country
+				species = ROOT
+				ethos = {
+					ethic = "ethic_xenophile"
+					ethic = "ethic_fanatic_egalitarian"			
+				}
+			}
+            change_pc = &EARTH_PC_TYPE&
+			every_tile = {
+				limit = {
+					has_blocker = yes
+				}
+				remove_blocker = yes
+			}
+			random_tile = {
+				limit = { has_building = "building_colony_shelter" }
+				remove_building = yes
+			}
+			while = {
+				count = 3			
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_building = no
+						has_grown_pop = no
+					}
+					set_blocker = tb_decrepit_dwellings
+				}
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_building = no
+						has_grown_pop = no
+					}
+					set_blocker = tb_failing_infrastructure		
+				}				
+			}					
+			while = {
+				count = 7
+				random_tile = {
+					limit = {
+						has_blocker = no
+						has_grown_pop = no
+						has_growing_pop = no
+					}
+					create_pop = {
+						species = ROOT
+					}
+				}
+			}
+			while = {
+				count = 4
+				random_tile = {
+					limit = { 
+						has_blocker = no 
+						has_building = no 
+						has_grown_pop = yes
+					}
+					set_building = "building_primitive_factory"
+					set_deposit = d_mineral_deposit
+				}
+			}
+			while = {
+				count = 4
+				random_tile = {
+					limit = { 
+						has_blocker = no 
+						has_building = no 
+						has_grown_pop = yes
+					}
+					set_building = "building_primitive_farm"
+					set_deposit = d_farmland_deposit
+				}
+			}
+			last_created_country = {
+				capital_scope = { set_name = "Earth" }
+			}
+		}
+	}
+}
+
+country_event = {
+    id = converter.5
+    hide_window = yes
+    fire_only_once = yes
+    trigger = {
+        has_country_flag = nuclear_obliteration
+        NOT = {
+            has_country_flag = but_not_yet
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 1
+    }
+
+    immediate = {
+        every_owned_planet = {
+            destroy_colony = { keep_buildings = no }
+            change_pc = pc_toxic
+            reroll_planet = yes
+            add_modifier = {
+                modifier = "nuclear_devastation"
+                days = -1
+            }
+            every_owned_pop = {
+                kill_pop = yes
+            }
+        }
+    }
+}
+
+country_event = {
+    id = converter.6
+    hide_window = yes
+    fire_only_once = yes
+    trigger = {
+        has_country_flag = nuclear_war
+        NOT = {
+            has_country_flag = but_not_yet
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 1
+    }
+
+    immediate = {
+        every_owned_planet = {
+            destroy_colony = { keep_buildings = no }
+            change_pc = pc_nuked
+            reroll_planet = yes
+            every_owned_pop = {
+                kill_pop = yes
+            }
+        }
+    }
+}
+
+planet_event = {
+    id = converter.7
+    hide_window = yes
+    fire_only_once = yes
+    trigger = {
+        has_planet_flag = was_never_there
+        NOT = {
+            has_country_flag = but_not_yet
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 1
+    }
+
+    immediate = {
+        destroy_colony = { keep_buildings = no }
+        #change_pc = pc_toxic
+        reroll_planet = yes
+        #add_modifier = {
+        #    modifier = "nuclear_devastation"
+        #        days = -1
+        #}
+        every_owned_pop = {
+            kill_pop = yes
+        }
+    }
+}
+
