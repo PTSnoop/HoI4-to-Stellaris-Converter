@@ -117,6 +117,10 @@ def ParseSaveData(alllines, debug=False):
 
         if i == 1:
             # First line weirdness
+            if line[:7] == "HOI4bin":
+                print("ERROR: The HoI4 save file is compressed, and cannot be read. Please edit 'Documents/Paradox Interactive/Hearst of Iron IV/settings.txt' with a text editor, and change 'save_as_binary=yes' to 'save_as_binary=no'. Then save your HoI4 game again.")
+                print("Exiting.")
+                sys.exit(0)
             if line == "HOI4txt":
                 continue
             if ord(line[0]) == 65279:
@@ -248,6 +252,10 @@ class Parser:
         popmax = float(self.pops[max(self.pops, key=self.pops.get)])
         factorymax = float(self.factories[max(self.factories, key=self.factories.get)])
         scoremax = float(self.warscore[max(self.warscore, key=self.warscore.get)])
+
+        if (popmax < 1): popmax = 1
+        if (factorymax < 1): factorymax = 1
+        if (scoremax < 1): scoremax = 1
 
         def tweakedsort(a):
             popproportion = float(self.pops[a])/popmax
