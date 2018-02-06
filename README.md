@@ -29,6 +29,11 @@ Known limitations:
 
 ---
 
+Mods included:
+Variable Earth Climates - https://steamcommunity.com/sharedfiles/filedetails/?id=902328397
+
+---
+
 Screenshots:
 
 ![20180130212452_1](https://user-images.githubusercontent.com/1518001/35595026-35cfa166-060d-11e8-9c6f-cc2eb53fe532.jpg)
