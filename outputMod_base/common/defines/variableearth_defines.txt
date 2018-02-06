@@ -1,0 +1,3 @@
+﻿NGraphics = {
+    PLANET_TILT_FROM_SUN = -0.235 # Makes Earth a bit less tilty
+}

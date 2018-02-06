@@ -58,6 +58,8 @@ country_event = {
 				species = ROOT
 			}
             change_pc = &EARTH_PC_TYPE&
+		    set_planet_entity = { entity = "&EARTH_ENTITY&" }
+
 			every_tile = {
 				limit = {
 					has_blocker = yes
@@ -176,6 +178,7 @@ country_event = {
 				species = ROOT
 			}
             change_pc = &EARTH_PC_TYPE&
+		    set_planet_entity = { entity = "&EARTH_ENTITY&" }
 			every_tile = {
 				limit = {
 					has_blocker = yes
@@ -319,6 +322,7 @@ country_event = {
 				}
 			}
             change_pc = &EARTH_PC_TYPE&
+		    set_planet_entity = { entity = "&EARTH_ENTITY&" }
 			every_tile = {
 				limit = {
 					has_blocker = yes

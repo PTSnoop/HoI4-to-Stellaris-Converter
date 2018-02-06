@@ -345,6 +345,18 @@ class Universe:
     def getEarthClass(self):
         return self.earthType
 
+    def getEarthEntity(self):
+        if self.earthType == "pc_desert": return "variable_earth_desert_entity"
+        if self.earthType == "pc_arid": return "variable_earth_arid_entity"
+        if self.earthType == "pc_savannah": return "variable_earth_savannah_entity"
+        if self.earthType == "pc_tropical": return "variable_earth_tropical_entity"
+        if self.earthType == "pc_ocean": return "variable_earth_ocean_entity"
+        if self.earthType == "pc_tundra": return "variable_earth_tundra_entity"
+        if self.earthType == "pc_arctic": return "variable_earth_arctic_entity"
+        if self.earthType == "pc_alpine": return "variable_earth_alpine_entity"
+        if self.earthType == "pc_nuked": return "nuked_planet"
+        return "continental_planet_earth_entity"
+
     def getEmpires(self):
         return self.empires
 

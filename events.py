@@ -31,6 +31,7 @@ class Events:
         self.earthTypeFlag = self.universe.getEarthTypeFlag()
         self.earthOwner = self.universe.getEarthOwner()
         self.earthClass = self.universe.getEarthClass()
+        self.earthEntity = self.universe.getEarthEntity()
 
         if not self.earthOwner: self.earthOwner = "nobody"
 
@@ -56,6 +57,7 @@ class Events:
         event = event.replace("&EARTH_TYPE_FLAG&", self.earthTypeFlag)
         event = event.replace("&EARTH_OWNER_LONGTAG&", self.earthOwner)
         event = event.replace("&EARTH_PC_TYPE&", self.earthClass)
+        event = event.replace("&EARTH_ENTITY&", self.earthEntity)
         event = event.replace("&PLANETS&", planetsString)
         event = event.replace("&OPINION_PENALTIES&", opinionPenalties)
         event = event.replace("&OPTIONS&", optionsString)
