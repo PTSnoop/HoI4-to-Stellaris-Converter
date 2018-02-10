@@ -285,7 +285,11 @@ class Parser:
             ndata.government = governments[nation]
             ndata.ideology = ideologies[nation]
             ndata.capital = capitals[nation]
-            ndata.climate = climateMap[int(capitals[nation])]
+            capitalId = int(ndata.capital)
+            if capitalId in climateMap:
+                ndata.climate = climateMap[int(capitals[nation])]
+            else:
+                ndata.climate = "pc_arid"
 
             if len(self.topNations) > 6 or tweakedsort(nation) < 0.1:
                 self.smallNations.append(ndata)
