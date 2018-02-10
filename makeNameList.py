@@ -12,6 +12,8 @@ def removeAccents(inputNames):
         try:
             nfkd_form = unicodedata.normalize('NFKD', name)
             name = u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+            if any(c.isdigit() for c in name):
+                continue
             name = name.encode('utf-8').decode('ascii')
             outputNames.append(name)
         except UnicodeEncodeError:
@@ -111,8 +113,6 @@ def MakeNameList(tag,hoi4path,destFolder):
 
     planetnames = subs
     ships = destroyers + light_cruisers + heavy_cruisers + battle_cruisers + battleships + carriers
-
-    planetnames = [sub for sub in subs if not any(char.isdigit() for char in sub)]
 
     # Leave this in until I work out what accents Stellaris can't take
     ships = removeAccents(ships)

@@ -112,7 +112,7 @@ class Universe:
 
         if len(self.empires) == 1:
             self.events.append(Event("Hegemon",self.empires[0].tag))
-            self.earthOwnedBy = self.empires[0].tag
+            self.earthOwnedBy = self.empires[0].longTag()
             climateAuthority = self.empires[0].tag
             
         elif self.empires[0].score / self.totalScore > 0.5: # largest nation has 50%
@@ -124,7 +124,7 @@ class Universe:
                 self.events.append(Event("MinorNuclearWarWin",self.empires[0].tag))
 
                 self.nuclearWar = 1
-                self.earthOwnedBy = self.empires[0].tag
+                self.earthOwnedBy = self.empires[0].longTag()
                 self.empires[0].nuclear = True
                 self.empires[1].nuclear = True
                 self.empires[1].population *= 0.25
@@ -133,7 +133,7 @@ class Universe:
                 self.events.append(Event("EconomicCollapse",self.empires[1].tag))
                 self.empires[1].industry *= 0.75
                 self.events.append(Event("Hegemon",self.empires[0].tag))
-                self.earthOwnedBy = self.empires[0].tag
+                self.earthOwnedBy = self.empires[0].longTag()
                 
         else: # largest nation does not have 50%
 

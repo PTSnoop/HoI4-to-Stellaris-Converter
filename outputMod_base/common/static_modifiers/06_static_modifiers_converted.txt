@@ -142,6 +142,114 @@ converted_4_neutrality = {
 	navy_size_mult = -0.5
 }
 
+converted_1_ancap = {
+	tile_resource_minerals_mult = -0.1
+	tile_resource_energy_mult = -0.1
+	tile_resource_physics_research_mult = -0.1
+	tile_resource_society_research_mult = -0.1
+	tile_resource_engineering_research_mult = -0.1
+	navy_size_mult = -0.1
+}
+
+converted_2_ancap = {
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+	navy_size_mult = -0.2
+}
+
+converted_3_ancap = {
+	tile_resource_minerals_mult = -0.3
+	tile_resource_energy_mult = -0.3
+	tile_resource_physics_research_mult = -0.3
+	tile_resource_society_research_mult = -0.3
+	tile_resource_engineering_research_mult = -0.3
+	navy_size_mult = -0.3
+}
+
+converted_4_ancap = {
+	tile_resource_minerals_mult = -0.5
+	tile_resource_energy_mult = -0.5
+	tile_resource_physics_research_mult = -0.5
+	tile_resource_society_research_mult = -0.5
+	tile_resource_engineering_research_mult = -0.5
+	navy_size_mult = -0.5
+}
+
+converted_1_autocratic = {
+	tile_resource_minerals_mult = -0.1
+	tile_resource_energy_mult = -0.1
+	tile_resource_physics_research_mult = -0.1
+	tile_resource_society_research_mult = -0.1
+	tile_resource_engineering_research_mult = -0.1
+	navy_size_mult = -0.1
+}
+
+converted_2_autocratic = {
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+	navy_size_mult = -0.2
+}
+
+converted_3_autocratic = {
+	tile_resource_minerals_mult = -0.3
+	tile_resource_energy_mult = -0.3
+	tile_resource_physics_research_mult = -0.3
+	tile_resource_society_research_mult = -0.3
+	tile_resource_engineering_research_mult = -0.3
+	navy_size_mult = -0.3
+}
+
+converted_4_autocratic = {
+	tile_resource_minerals_mult = -0.5
+	tile_resource_energy_mult = -0.5
+	tile_resource_physics_research_mult = -0.5
+	tile_resource_society_research_mult = -0.5
+	tile_resource_engineering_research_mult = -0.5
+	navy_size_mult = -0.5
+}
+
+converted_1_syndicalism = {
+	tile_resource_minerals_mult = -0.1
+	tile_resource_energy_mult = -0.1
+	tile_resource_physics_research_mult = -0.1
+	tile_resource_society_research_mult = -0.1
+	tile_resource_engineering_research_mult = -0.1
+	navy_size_mult = -0.1
+}
+
+converted_2_syndicalism = {
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+	navy_size_mult = -0.2
+}
+
+converted_3_syndicalism = {
+	tile_resource_minerals_mult = -0.3
+	tile_resource_energy_mult = -0.3
+	tile_resource_physics_research_mult = -0.3
+	tile_resource_society_research_mult = -0.3
+	tile_resource_engineering_research_mult = -0.3
+	navy_size_mult = -0.3
+}
+
+converted_4_syndicalism = {
+	tile_resource_minerals_mult = -0.5
+	tile_resource_energy_mult = -0.5
+	tile_resource_physics_research_mult = -0.5
+	tile_resource_society_research_mult = -0.5
+	tile_resource_engineering_research_mult = -0.5
+	navy_size_mult = -0.5
+}
+
 converted_1_nuclear = {
 	tile_resource_minerals_mult = -0.1
 	tile_resource_energy_mult = -0.1
@@ -178,3 +286,19 @@ converted_4_nuclear = {
 	navy_size_mult = -0.5
 }
 
+converted_0_democratic = {
+}
+converted_0_communism = {
+}
+converted_0_fascism = {
+}
+converted_0_neutrality = {
+}
+converted_0_autocratic = {
+}
+converted_0_ancap = {
+}
+converted_0_syndicalism = {
+}
+converted_0_nuclear = {
+}

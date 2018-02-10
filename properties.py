@@ -101,6 +101,7 @@ def getStates(hoi4path):
         stateId = int(naive_parser.drill(state,"state","id"))
         provinces = naive_parser.drill(state,"state","provinces","").split(" ")
 
+
         provinceIds = []
         for province in provinces:
             if not province: continue
@@ -124,6 +125,14 @@ def getClimates(hoi4path):
         yearRain = []
         yearSnow = []
         yearSand = []
+
+        for province in provinces:
+            if not province: continue
+            provinceId = int(province)
+            if provinceId in stateMap:
+                if stateMap[provinceId] == 523:
+                    print("FOUND")
+                    print(filename)
 
         if len(periods) == 0:
             continue
@@ -176,5 +185,6 @@ def getClimates(hoi4path):
 
 if __name__ == "__main__":
     hoi4path = "D:/Steam/steamapps/common/Hearts of Iron IV/"
-    hoi4path = "D:/Paradox Interactive/Hearts of Iron IV/mod/Vanilla_Uruguay_End/"
-    print(getClimates(hoi4path))
+    #hoi4path = "D:/Paradox Interactive/Hearts of Iron IV/mod/Vanilla_Uruguay_End/"
+    c = getClimates(hoi4path)
+    print(c[523])
