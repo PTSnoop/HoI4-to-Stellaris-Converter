@@ -126,8 +126,8 @@ country_event = {
 					set_deposit = d_farmland_deposit
 				}
 			}
-			last_created_country = {
-				capital_scope = { set_name = "Earth" }
+            event_target:un_earth = {
+				set_name = "Earth"
 			}
 
 			create_spaceport = {
@@ -157,6 +157,7 @@ country_event = {
 
 	trigger = { 
         has_country_flag = give_planet 
+        has_country_flag = nope
         NOT = {
             has_country_flag = but_not_yet
         }
@@ -245,8 +246,8 @@ country_event = {
 					set_deposit = d_farmland_deposit
 				}
 			}
-			last_created_country = {
-				capital_scope = { set_name = "Earth" }
+            event_target:un_earth = {
+				set_name = "Earth"
 			}
 		}
 	}
@@ -389,8 +390,8 @@ country_event = {
 					set_deposit = d_farmland_deposit
 				}
 			}
-			last_created_country = {
-				capital_scope = { set_name = "Earth" }
+            event_target:un_earth = {
+				set_name = "Earth"
 			}
 		}
 	}
