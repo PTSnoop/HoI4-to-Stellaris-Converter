@@ -126,14 +126,6 @@ def getClimates(hoi4path):
         yearSnow = []
         yearSand = []
 
-        for province in provinces:
-            if not province: continue
-            provinceId = int(province)
-            if provinceId in stateMap:
-                if stateMap[provinceId] == 523:
-                    print("FOUND")
-                    print(filename)
-
         if len(periods) == 0:
             continue
 
