@@ -42,6 +42,7 @@ def drill(blob, *args):
         return ""
 
 def unquote(string):
+    if string == "": return ""
     string = trim(string)
     if string[0] == '"':
         string = string[1:]
@@ -290,6 +291,10 @@ class Parser:
                 ndata.climate = climateMap[int(capitals[nation])]
             else:
                 ndata.climate = "pc_arid"
+
+            oldtag = unquote(drill(savefile,"countries",nation,"original_tag"))
+            if oldtag:
+                ndata.tag = oldtag
 
             if len(self.topNations) > 6 or tweakedsort(nation) < 0.1:
                 self.smallNations.append(ndata)
