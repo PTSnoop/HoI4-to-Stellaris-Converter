@@ -1,0 +1,7 @@
+            solar_system = {
+                create_starbase = {
+                    size = starbase_starport
+                    module = shipyard
+                    owner = last_created_country
+                }
+            }

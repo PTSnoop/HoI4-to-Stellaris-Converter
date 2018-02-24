@@ -3,6 +3,9 @@
 		event_target:&LONGTAG& = {
 			set_player = ROOT
 		}
+        ROOT = {
+            destroy_country = yes
+        }
 	}
 
 

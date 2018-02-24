@@ -22,6 +22,7 @@ class Events:
         self.text_opinion_penalty = open("files/converter_events_opinionpenalty.txt").read()
         self.text_new_human = open("files/converter_events_newhuman.txt").read()
         self.text_option = open("files/converter_events_option.txt").read()
+        self.text_starbase = open("files/converter_events_starbase.txt").read()
 
     def makeEvents(self):
         event = self.text_start
@@ -82,6 +83,7 @@ class Events:
             &COLOUR& : red
             &MODIFIER& : converted_2_nuclear
             &NEW_HUMANS& : converter_events_newhuman.txt repeated
+            &STARBASE& : converter_events_starbase.txt
 
             &MINERALS& : 1000
             &ENERGY& : 1000
@@ -93,7 +95,7 @@ class Events:
         planet_size_delta = str(empire.planetSize - 16)
         planet_pc_type = empire.planetClass
         owner_tag = empire.tag
-        owner_longtag = empire.tag + "_" + empire.government
+        owner_longtag = empire.longTag()
 
         government = self.getGovernment(empire)
 
@@ -121,6 +123,10 @@ class Events:
         for i in range(humancount):
             humanString += self.text_new_human
 
+        starbaseString = ""
+        if self.earthOwner != empire.longTag():
+            starbaseString += self.text_starbase
+
         planet = planet.replace("&PLANET_ID&",planet_id)
         planet = planet.replace("&PLANET_SIZE_DELTA&",planet_size_delta)
         planet = planet.replace("&PLANET_PC_TYPE&",planet_pc_type)
@@ -132,6 +138,7 @@ class Events:
         planet = planet.replace("&COLOUR&",colour)
         planet = planet.replace("&MODIFIER&",modifier)
         planet = planet.replace("&NEW_HUMANS&",humanString)
+        planet = planet.replace("&STARBASE&",starbaseString)
         planet = planet.replace("&MINERALS&",minerals)
         planet = planet.replace("&ENERGY&",energy)
         planet = planet.replace("&FOOD&",food)

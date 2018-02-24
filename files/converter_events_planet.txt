@@ -69,10 +69,7 @@
 
 &NEW_HUMANS&
 
-			create_spaceport = {
-				owner = last_created_country
-				initial_module = "projectile_weapon"
-			}
+&STARBASE&
 
 			last_created_country = { 
 				add_minerals = &MINERALS& 

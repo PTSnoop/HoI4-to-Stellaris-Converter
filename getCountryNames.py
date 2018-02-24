@@ -9,7 +9,11 @@ def getCountryNames(hoi4path):
     if not os.path.exists(countryNameYmlPath):
         countryNameYmlPath = hoi4path + "localisation/countries_l_english.yml"
 
-    ymlData = open(countryNameYmlPath).read()
+    try:
+        ymlFile = open(countryNameYmlPath, encoding="utf-8")
+    except:
+        ymlFile = open(countryNameYmlPath)
+    ymlData = ymlFile.read()
     ymlData = "\n".join(ymlData.split("\n")[1:])[1:]
 
     ymlData = re.sub(r':[0-9]*',r':', ymlData)

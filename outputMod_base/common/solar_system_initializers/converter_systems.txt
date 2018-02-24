@@ -44,6 +44,7 @@ converter_sol_system = {
 		entity = "continental_planet_earth_entity"
 		tile_blockers = none
 		modifiers = none
+        flags = { planet_earth }
 		
 		init_effect = {
 			prevent_anomaly = yes
@@ -55,58 +56,6 @@ converter_sol_system = {
 				limit = { has_country_flag = human_2 }
 				owner_species = { save_event_target_as = human_species }
 			}
-			create_country = {
-				name = "NAME_United_Nations_of_Earth"
-				authority = auth_democratic
-				civics = {
-					civic = civic_beacon_of_liberty
-					civic = civic_idealistic_foundation
-				}
-				species = event_target:human_species
-				name_list = "HUM3"
-				#ship_prefix = "UNS"
-				ethos = {
-					ethic = "ethic_xenophile"
-					ethic = "ethic_fanatic_egalitarian"
-				}
-				flag = {
-					icon = {
-						category = "human"
-						file = "flag_human_8.dds"
-					}
-					background = {
-						category = "backgrounds"
-						file = "00_solid.dds"
-					}
-					colors = {
-						"dark_blue"
-						"dark_blue"
-						"null"
-						"null"
-					}
-				}
-				type = default
-			}
-			while = {
-				count = 8
-				random_tile = {
-					limit = {
-						has_blocker = no
-						has_grown_pop = no
-						has_growing_pop = no
-						has_building = yes
-					}
-					create_pop = {
-						species = event_target:human_species
-					}
-				}
-			}
-			set_owner = last_created_country
-			create_spaceport = {
-				owner = last_created_country
-				initial_module = "missile_weapon"
-			}
-			last_created_country = { add_minerals = 300 }
 		}
 		
 		moon = {

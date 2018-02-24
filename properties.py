@@ -96,6 +96,9 @@ def getStates(hoi4path):
         
         stateData = re.sub(r"#[^\n]*?\n",r"\n",stateData)
 
+        if not stateData:
+            continue
+
         state = naive_parser.ParseSaveData(stateData)
 
         stateId = int(naive_parser.drill(state,"state","id"))
@@ -120,7 +123,10 @@ def getClimates(hoi4path):
     for filename in os.listdir(hoi4path+"map/strategicregions/"):
         climateData = naive_parser.ParseSaveFile(hoi4path + "map/strategicregions/"+filename)
         provinces = naive_parser.drill(climateData,"strategic_region","provinces","").split(" ")
-        periods = naive_parser.drill(climateData,"strategic_region","weather")["period"]
+        periodses = naive_parser.drill(climateData,"strategic_region","weather")
+        if not "period" in periodses:
+            continue
+        periods = periodses["period"]
         yearTemperatures = []
         yearRain = []
         yearSnow = []

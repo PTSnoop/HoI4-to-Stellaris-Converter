@@ -124,8 +124,9 @@ def ParseSaveData(alllines, debug=False):
                 sys.exit(0)
             if line == "HOI4txt":
                 continue
-            if ord(line[0]) == 65279:
-                line = line[1:]
+            if len(line) > 0:
+                if ord(line[0]) == 65279:
+                    line = line[1:]
 
         if debug:
             print(line)
