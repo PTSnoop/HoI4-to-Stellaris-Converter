@@ -148,6 +148,8 @@ planet_event = {
                 }
             }
         }
+
+        set_capital = yes
     }
 }
 
@@ -240,6 +242,12 @@ planet_event = {
                 size = starbase_starport
                 module = shipyard
                 owner = ROOT
+            }
+            space_owner = {
+                # Spawn ships
+                country_event = { id = game_start.9 }
+                # Populate home system
+                country_event = { id = game_start.33 }
             }
         }
     }

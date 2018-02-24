@@ -5,3 +5,10 @@
                     owner = last_created_country
                 }
             }
+
+            last_created_country = {
+                # Spawn ships
+                country_event = { id = game_start.9 }
+                # Populate home system
+                country_event = { id = game_start.33 }
+            }
