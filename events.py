@@ -242,7 +242,7 @@ class Events:
         elif empire.ideology == "absolute_monarchy":
             government.authority = "auth_imperial"
             government.ethics = ["ethic_spiritualist","ethic_militarist","ethic_authoritarian"]
-            government.civics = ["civic_feudal_society", "civic_philosopher_king"]
+            government.civics = ["civic_feudal_realm", "civic_philosopher_king"]
 
         elif empire.ideology == "prussian_const":
             government.authority = "auth_imperial"

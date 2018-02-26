@@ -253,6 +253,15 @@ class Universe:
         yearRange = endYear - startYear
         eventCount = numpy.random.randint(8,12)
 
+        nationCount = len(self.topNations)+len(self.smallNations)
+        if nationCount == 1: # only one nation - so events about "nations" won't make much sense
+            deleteKeys = []
+            for key in self.eventStrings:
+                if "nation" in self.eventStrings[key].lower():
+                    deleteKeys.append(key)
+            for key in deleteKeys:
+                del self.eventStrings[key] 
+
         realEvents = []
         for event in self.events:
             if event.eventType in self.eventStrings:
@@ -317,8 +326,15 @@ class Universe:
             replaces["&NATION_2&"] = tagToName[event.tags[1]] if len(event.tags) > 1 else ""
             replaces["&NATION_1_ADJ&"] = tagToAdj[event.tags[0]] if len(event.tags) > 0 else ""
             replaces["&NATION_2_ADJ&"] = tagToAdj[event.tags[1]] if len(event.tags) > 1 else ""
-            replaces["&RANDOM_SMALL_CITY&"] = numpy.random.choice(cityNames)
-            replaces["&RANDOM_SMALL_NATION&"] = tagToName[numpy.random.choice(self.smallNations).tag]
+            if len(cityNames) > 0:
+                replaces["&RANDOM_SMALL_CITY&"] = numpy.random.choice(cityNames)
+            else:
+                replaces["&RANDOM_SMALL_CITY&"] = "Vienna"
+                
+            if len(self.smallNations) > 0:
+                replaces["&RANDOM_SMALL_NATION&"] = tagToName[numpy.random.choice(self.smallNations).tag]
+            else:
+                replaces["&RANDOM_SMALL_NATION&"] = "Secret Denmark"
 
             eventline = self.eventStrings[event.eventType]
             for replaceString in replaces:

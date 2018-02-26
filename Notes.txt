@@ -1,4 +1,4 @@
-pinstaller --onefile --console Converter.py
+pyinstaller --onefile --console Converter.py
 
 PythonMagick is still causing problems.
 #https://www.microsoft.com/en-gb/download/details.aspx?id=5555
