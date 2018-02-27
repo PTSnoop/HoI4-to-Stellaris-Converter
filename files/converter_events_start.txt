@@ -175,6 +175,7 @@ planet_event = {
             days = -1
         }
         every_pop = {
+            limit = { planet = { has_planet_flag = nuclear_obliteration } }
             kill_pop = yes
         }
     }
@@ -196,6 +197,7 @@ planet_event = {
         change_pc = pc_nuked
         reroll_planet = yes
         every_pop = {
+            limit = { planet = { has_planet_flag = nuclear_war } }
             kill_pop = yes
         }
     }
