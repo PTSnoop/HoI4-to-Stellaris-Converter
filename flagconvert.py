@@ -21,8 +21,16 @@ def ColourSet(image):
     return colourset
 
 def CompileFlag(sourcepath, destFolder):
+
     if not destFolder: destFolder = "output/"
     filename = os.path.splitext(os.path.basename(sourcepath))[0]
+
+    if os.path.exists(sourcepath) == False:
+        sourceSplit = sourcepath.split("/")
+        sourceSplit[-1] = sourceSplit[-1][:3]+".tga"
+        basesourcepath = "/".join(sourceSplit)
+        print("WARNING: Could not find \""+sourcepath+"\". Falling back to \""+basesourcepath+"\".")
+        sourcepath = basesourcepath
 
     image = PythonMagick.Image(sourcepath)
     imagetype = image.type
