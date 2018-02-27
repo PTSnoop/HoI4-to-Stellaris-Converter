@@ -101,6 +101,9 @@ def getStates(hoi4path):
 
         state = naive_parser.ParseSaveData(stateData)
 
+        if 0 == len(state.keys()):
+            print("WARNING: \""+hoi4path+"history/states/"+filename+"\" could not be parsed. Skipping.")
+            continue
         stateId = int(naive_parser.drill(state,"state","id"))
         provinces = naive_parser.drill(state,"state","provinces","").split(" ")
 
@@ -182,7 +185,7 @@ def getClimates(hoi4path):
             
 
 if __name__ == "__main__":
-    hoi4path = "D:/Steam/steamapps/common/Hearts of Iron IV/"
+    hoi4path = "D:/Files/StellarisConverter/converter/Kr/"
     #hoi4path = "D:/Paradox Interactive/Hearts of Iron IV/mod/Vanilla_Uruguay_End/"
-    c = getClimates(hoi4path)
-    print(c[523])
+    c = getStates(hoi4path)
+    #print(c[523])
