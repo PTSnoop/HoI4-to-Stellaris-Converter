@@ -265,6 +265,7 @@ class Events:
             government.civics = ["civic_idealistic_foundation", "civic_meritocracy"]
 
         else:
+            print("WARNING: Did not recognise "+empire.longTag()+"'s \""+empire.ideology+"\" ideology. Falling back to generic democracy.")
             government.authority = "auth_democratic"
             government.ethics = ["ethic_egalitarian","ethic_pacifist","ethic_xenophobe"]
             government.civics = ["civic_parliamentary_system", "civic_environmentalist"]
