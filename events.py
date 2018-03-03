@@ -147,123 +147,16 @@ class Events:
         return planet
 
     def getGovernment(self, empire):
-        government = Dotdict({})
+        governmentSet = naive_parser.ParseSaveFile("files/governments.txt")
 
         empire.ideology = empire.ideology.replace("_neutral","")
+        government = Dotdict({})
 
-        if empire.ideology == "conservatism":
-            government.authority = "auth_democratic"
-            government.ethics = ["ethic_egalitarian","ethic_pacifist","ethic_xenophobe"]
-            government.civics = ["civic_parliamentary_system", "civic_environmentalist"]
-
-        elif empire.ideology == "liberalism":
-            government.authority = "auth_democratic"
-            government.ethics = ["ethic_fanatic_egalitarian","ethic_xenophile"]
-            government.civics = ["civic_beacon_of_liberty", "civic_idealistic_foundation"]
-
-        elif empire.ideology == "socialism":
-            government.authority = "auth_democratic"
-            government.ethics = ["ethic_fanatic_egalitarian","ethic_pacifist"]
-            government.civics = ["civic_environmentalist", "civic_meritocracy"]
-
-        ###
-
-        elif empire.ideology == "marxism":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_fanatic_materialist","ethic_pacifist"]
-            government.civics = ["civic_police_state","civic_technocracy"]
-
-        elif empire.ideology == "leninism":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_fanatic_materialist","ethic_authoritarian"]
-            government.civics = ["civic_police_state","civic_functional_architecture"]
-
-        elif empire.ideology == "stalinism":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_xenophobe","ethic_authoritarian","ethic_materialist"]
-            government.civics = ["civic_police_state","civic_cutthroat_politics"]
-
-        elif empire.ideology == "anti_revisionism":
-            government.authority = "auth_oligarchic"
-            government.ethics = ["ethic_egalitarian", "ethic_materialist","ethic_xenophile"]
-            government.civics = ["civic_efficient_bureaucracy","civic_cutthroat_politics"]
-
-        elif empire.ideology == "anarchist_communism":
-            government.authority = "auth_democratic"
-            government.ethics = ["ethic_fanatic_egalitarian","ethic_materialist"]
-            government.civics = ["civic_meritocracy","civic_shadow_council"]
-
-        ###
-
-        elif empire.ideology == "nazism":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_fanatic_militarist","ethic_authoritarian"]
-            government.civics = ["civic_nationalistic_zeal","civic_corvee_system"]
-
-        elif empire.ideology == "fascism_ideology":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_fanatic_authoritarian","ethic_militarist"]
-            government.civics = ["civic_nationalistic_zeal","civic_police_state"]
-
-        elif empire.ideology == "falangism":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_fanatic_authoritarian","ethic_spiritualist"]
-            government.civics = ["civic_nationalistic_zeal","civic_mining_guilds"]
-
-        elif empire.ideology == "rexism":
-            government.authority = "auth_imperial"
-            government.ethics = ["ethic_fanatic_authoritarian","ethic_spiritualist"]
-            government.civics = ["civic_nationalistic_zeal","civic_aristocratic_elite"]
-
-        ###
-
-        elif empire.ideology == "despotism":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_fanatic_xenophobe","ethic_pacifist"]
-            government.civics = ["civic_police_state", "civic_corvee_system"]
-
-        elif empire.ideology == "oligarchism":
-            government.authority = "auth_oligarchic"
-            government.ethics = ["ethic_fanatic_xenophobe","ethic_pacifist"]
-            government.civics = ["civic_aristocratic_elite", "civic_cutthroat_politics"]
-            
-        elif empire.ideology == "moderatism":
-            government.authority = "auth_oligarchic"
-            government.ethics = ["ethic_xenophile","ethic_pacifist","ethic_spiritualist"]
-            government.civics = ["civic_aristocratic_elite", "civic_cutthroat_politics"]
-
-        elif empire.ideology == "centrism":
-            government.authority = "auth_oligarchic"
-            government.ethics = ["ethic_xenophile","ethic_pacifist","ethic_materialist"]
-            government.civics = ["civic_aristocratic_elite", "civic_cutthroat_politics"]
-
-        ###
-
-        elif empire.ideology == "absolute_monarchy":
-            government.authority = "auth_imperial"
-            government.ethics = ["ethic_spiritualist","ethic_militarist","ethic_authoritarian"]
-            government.civics = ["civic_feudal_realm", "civic_philosopher_king"]
-
-        elif empire.ideology == "prussian_const":
-            government.authority = "auth_imperial"
-            government.ethics = ["ethic_xenophile","ethic_spiritualist","ethic_militarist"]
-            government.civics = ["civic_philosopher_king", "civic_aristocratic_elite"]
-
-        elif empire.ideology == "theocracy":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_fanatic_spiritualist", "ethic_xenophile"]
-            government.civics = ["civic_environmentalist", "civic_free_haven"]
-
-        elif empire.ideology == "dictatorship":
-            government.authority = "auth_dictatorial"
-            government.ethics = ["ethic_fanatic_authoritarian","ethic_xenophobe"]
-            government.civics = ["civic_police_state", "civic_functional_architecture"]
-
-        elif empire.ideology == "minarchism":
-            government.authority = "auth_democratic"
-            government.ethics = ["ethic_fanatic_egalitarian","ethic_materialist"]
-            government.civics = ["civic_idealistic_foundation", "civic_meritocracy"]
-
+        if naive_parser.drill(governmentSet,"governments",empire.ideology):
+            government.authority = naive_parser.drill(governmentSet,"governments",empire.ideology,"authority")
+            government.ethics = naive_parser.splitstrings(naive_parser.drill(governmentSet,"governments",empire.ideology,"ethics",""))
+            government.civics = naive_parser.splitstrings(naive_parser.drill(governmentSet,"governments",empire.ideology,"civics",""))
+        
         else:
             print("WARNING: Did not recognise "+empire.longTag()+"'s \""+empire.ideology+"\" ideology. Falling back to generic democracy.")
             government.authority = "auth_democratic"

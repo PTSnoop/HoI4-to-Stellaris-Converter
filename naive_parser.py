@@ -67,6 +67,10 @@ def printstack(stack):
         print("-")
     print("---")
 
+def splitstrings(string):
+    splits = string.split(",")
+    splits = [unquote(s) for s in splits]
+    return splits
 
 def ParseSaveFile(path, debug=False):
     try:

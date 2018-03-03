@@ -1,7 +1,8 @@
 configuration = {
  
     savefile = "D:\Paradox Interactive\Hearts of Iron IV\save games\postwar_1948_06_16_01.hoi4"
-    HoI4directory = "D:\Steam\steamapps\common\Hearts of Iron IV"
+    #savefile = "CONVERTTHIS.hoi4"
+    HoI4directory = "C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV"
     StellarisModdirectory = "D:\Paradox Interactive\Stellaris\mod"
 
 }

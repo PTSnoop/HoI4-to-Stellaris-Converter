@@ -1,0 +1,220 @@
+governments = {
+	conservatism = {
+		authority = "auth_democratic"
+		ethics = {
+			"ethic_egalitarian","ethic_pacifist","ethic_xenophobe"
+		}
+		civics = {
+			"civic_parliamentary_system", "civic_environmentalist"
+		}
+	}
+
+	liberalism = {
+		authority = "auth_democratic"
+		ethics = {
+			"ethic_fanatic_egalitarian","ethic_xenophile"
+		}
+		civics = {
+			"civic_beacon_of_liberty", "civic_idealistic_foundation"
+		}
+	}
+
+	socialism = {
+		authority = "auth_democratic"
+		ethics = {
+			"ethic_fanatic_egalitarian","ethic_pacifist"
+		}
+		civics = {
+			"civic_environmentalist", "civic_meritocracy"
+		}
+	}
+
+###
+
+	marxism = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_fanatic_materialist","ethic_pacifist"
+		}
+		civics = {
+			"civic_police_state","civic_technocracy"
+		}
+	}
+
+	leninism = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_fanatic_materialist","ethic_authoritarian"
+		}
+		civics = {
+			"civic_police_state","civic_functional_architecture"
+		}
+	}
+
+	stalinism = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_xenophobe","ethic_authoritarian","ethic_materialist"
+		}
+		civics = {
+			"civic_police_state","civic_cutthroat_politics"
+		}
+	}
+
+	anti_revisionism = {
+		authority = "auth_oligarchic"
+		ethics = {
+			"ethic_egalitarian", "ethic_materialist","ethic_xenophile"
+		}
+		civics = {
+			"civic_efficient_bureaucracy","civic_cutthroat_politics"
+		}
+	}
+
+	anarchist_communism = {
+		authority = "auth_democratic"
+		ethics = {
+			"ethic_fanatic_egalitarian","ethic_materialist"
+		}
+		civics = {
+			"civic_meritocracy","civic_shadow_council"
+		}
+	}
+
+###
+
+	nazism = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_fanatic_militarist","ethic_authoritarian"
+		}
+		civics = {
+			"civic_nationalistic_zeal","civic_corvee_system"
+		}
+	}
+
+	fascism_ideology = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_fanatic_authoritarian","ethic_militarist"
+		}
+		civics = {
+			"civic_nationalistic_zeal","civic_police_state"
+		}
+	}
+
+	falangism = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_fanatic_authoritarian","ethic_spiritualist"
+		}
+		civics = {
+			"civic_nationalistic_zeal","civic_mining_guilds"
+		}
+	}
+
+	rexism = {
+		authority = "auth_imperial"
+		ethics = {
+			"ethic_fanatic_authoritarian","ethic_spiritualist"
+		}
+		civics = {
+			"civic_nationalistic_zeal","civic_aristocratic_elite"
+		}
+	}
+
+###
+
+	despotism = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_fanatic_xenophobe","ethic_pacifist"
+		}
+		civics = {
+			"civic_police_state", "civic_corvee_system"
+		}
+	}
+
+	oligarchism = {
+		authority = "auth_oligarchic"
+		ethics = {
+			"ethic_fanatic_xenophobe","ethic_pacifist"
+		}
+		civics = {
+			"civic_aristocratic_elite", "civic_cutthroat_politics"
+		}
+	}
+
+	moderatism = {
+		authority = "auth_oligarchic"
+		ethics = {
+			"ethic_xenophile","ethic_pacifist","ethic_spiritualist"
+		}
+		civics = {
+			"civic_aristocratic_elite", "civic_cutthroat_politics"
+		}
+	}
+
+	centrism = {
+		authority = "auth_oligarchic"
+		ethics = {
+			"ethic_xenophile","ethic_pacifist","ethic_materialist"
+		}
+		civics = {
+			"civic_aristocratic_elite", "civic_cutthroat_politics"
+		}
+	}
+
+###
+
+	absolute_monarchy = {
+		authority = "auth_imperial"
+		ethics = {
+			"ethic_spiritualist","ethic_militarist","ethic_authoritarian"
+		}
+		civics = {
+			"civic_feudal_realm", "civic_philosopher_king"
+		}
+	}
+
+	prussian_const = {
+		authority = "auth_imperial"
+		ethics = {
+			"ethic_xenophile","ethic_spiritualist","ethic_militarist"
+		}
+		civics = {
+			"civic_philosopher_king", "civic_aristocratic_elite"
+		}
+	}
+
+	theocracy = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_fanatic_spiritualist", "ethic_xenophile"
+		}
+		civics = {
+			"civic_environmentalist", "civic_free_haven"
+		}
+	}
+
+	dictatorship = {
+		authority = "auth_dictatorial"
+		ethics = {
+			"ethic_fanatic_authoritarian","ethic_xenophobe"
+		}
+		civics = {
+			"civic_police_state", "civic_functional_architecture"
+		}
+	}
+
+	minarchism = {
+		authority = "auth_democratic"
+		ethics = {
+			"ethic_fanatic_egalitarian","ethic_materialist"
+		}
+		civics = {
+			"civic_idealistic_foundation", "civic_meritocracy"
+		}
+	}
+}
+
