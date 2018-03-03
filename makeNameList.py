@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 
-import os,sys
+import os
+import sys
 import re
 import random
 import naive_parser
 import unicodedata
+
 
 def removeAccents(inputNames):
     outputNames = []
@@ -21,6 +23,7 @@ def removeAccents(inputNames):
         except UnicodeDecodeError:
             pass
     return outputNames
+
 
 def ClunkyStringSplit(string):
     outputs = []
@@ -40,6 +43,7 @@ def ClunkyStringSplit(string):
         outputs.append(currentOutput)
     return outputs
 
+
 def stringlist_drill(*args):
     output = []
     theStrings = naive_parser.drill(*args)
@@ -47,10 +51,11 @@ def stringlist_drill(*args):
         for line in theStrings['']:
             output += ClunkyStringSplit(line)
     return output
-            
+
+
 def TemplateFill(data, filename, writefilename):
     for key in data:
-        if isinstance(data[key],list):
+        if isinstance(data[key], list):
             newdata = ""
             for entry in data[key]:
                 newdata += '"{}" '.format(entry)
@@ -58,58 +63,59 @@ def TemplateFill(data, filename, writefilename):
 
     filedata = open(filename).read()
     for key in data:
-        filedata = filedata.replace(key,data[key])
+        filedata = filedata.replace(key, data[key])
 
-    output = open(writefilename,'w',encoding="utf-8")
+    output = open(writefilename, 'w', encoding="utf-8")
     output.write(filedata)
 
-def MakeNameList(tag,hoi4path,destFolder):
+
+def MakeNameList(tag, hoi4path, destFolder):
 
     includeGenericUnitNames = True
 
-    namespath = hoi4path + "common/names/01_names.txt";
+    namespath = hoi4path + "common/names/01_names.txt"
     if os.path.exists(namespath):
-        print("Reading names from modded "+namespath)
+        print("Reading names from modded " + namespath)
         names = naive_parser.ParseSaveFile(namespath)
     else:
-        print("Reading names from " +      hoi4path + "common/names/00_names.txt")
+        print("Reading names from " + hoi4path + "common/names/00_names.txt")
         names = naive_parser.ParseSaveFile(hoi4path + "common/names/00_names.txt")
 
     modUnitNamesPath = hoi4path + "common/units/names/01_names.txt"
     if os.path.exists(modUnitNamesPath):
-        print("Reading unit names from modded "+modUnitNamesPath)
+        print("Reading unit names from modded " + modUnitNamesPath)
         unitnames = naive_parser.ParseSaveFile(modUnitNamesPath)
         includeGenericUnitNames = False
     else:
-        specialUnitNamePath = hoi4path + "common/units/names/00_"+tag+"_names.txt"
+        specialUnitNamePath = hoi4path + "common/units/names/00_" + tag + "_names.txt"
         if os.path.exists(specialUnitNamePath):
-            print("Reading unique unit names from "+specialUnitNamePath)
+            print("Reading unique unit names from " + specialUnitNamePath)
             unitnames = naive_parser.ParseSaveFile(specialUnitNamePath)
         else:
-            print("Could not find "+specialUnitNamePath)
-            print("Reading unit names from " +     hoi4path + "common/units/names/00_names.txt")
+            print("Could not find " + specialUnitNamePath)
+            print("Reading unit names from " + hoi4path + "common/units/names/00_names.txt")
             unitnames = naive_parser.ParseSaveFile(hoi4path + "common/units/names/00_names.txt")
 
-    malenames = stringlist_drill(names,tag,"male","names")
-    femalenames = stringlist_drill(names,tag,"female","names")
-    surnames = stringlist_drill(names,tag,"surnames")
+    malenames = stringlist_drill(names, tag, "male", "names")
+    femalenames = stringlist_drill(names, tag, "female", "names")
+    surnames = stringlist_drill(names, tag, "surnames")
 
-    subs = stringlist_drill(unitnames,tag,"submarine","unique")
-    destroyers = stringlist_drill(unitnames,tag,"destroyer","unique")
-    light_cruisers = stringlist_drill(unitnames,tag,"light_cruiser","unique")
-    heavy_cruisers = stringlist_drill(unitnames,tag,"heavy_cruiser","unique")
-    battle_cruisers = stringlist_drill(unitnames,tag,"battle_cruiser","unique")
-    battleships = stringlist_drill(unitnames,tag,"battleship","unique")
-    carriers = stringlist_drill(unitnames,tag,"carrier","unique")
+    subs = stringlist_drill(unitnames, tag, "submarine", "unique")
+    destroyers = stringlist_drill(unitnames, tag, "destroyer", "unique")
+    light_cruisers = stringlist_drill(unitnames, tag, "light_cruiser", "unique")
+    heavy_cruisers = stringlist_drill(unitnames, tag, "heavy_cruiser", "unique")
+    battle_cruisers = stringlist_drill(unitnames, tag, "battle_cruiser", "unique")
+    battleships = stringlist_drill(unitnames, tag, "battleship", "unique")
+    carriers = stringlist_drill(unitnames, tag, "carrier", "unique")
 
     if includeGenericUnitNames:
-        subs += stringlist_drill(unitnames,tag,"submarine","generic")
-        destroyers += stringlist_drill(unitnames,tag,"destroyer","generic")
-        light_cruisers += stringlist_drill(unitnames,tag,"light_cruiser","generic")
-        heavy_cruisers += stringlist_drill(unitnames,tag,"heavy_cruiser","generic")
-        battle_cruisers += stringlist_drill(unitnames,tag,"battle_cruiser","generic")
-        battleships += stringlist_drill(unitnames,tag,"battleship","generic")
-        carriers += stringlist_drill(unitnames,tag,"carrier","generic")
+        subs += stringlist_drill(unitnames, tag, "submarine", "generic")
+        destroyers += stringlist_drill(unitnames, tag, "destroyer", "generic")
+        light_cruisers += stringlist_drill(unitnames, tag, "light_cruiser", "generic")
+        heavy_cruisers += stringlist_drill(unitnames, tag, "heavy_cruiser", "generic")
+        battle_cruisers += stringlist_drill(unitnames, tag, "battle_cruiser", "generic")
+        battleships += stringlist_drill(unitnames, tag, "battleship", "generic")
+        carriers += stringlist_drill(unitnames, tag, "carrier", "generic")
 
     planetnames = subs
     ships = destroyers + light_cruisers + heavy_cruisers + battle_cruisers + battleships + carriers
@@ -136,7 +142,8 @@ def MakeNameList(tag,hoi4path,destFolder):
     templateData["&FEMALENAMES&"] = femalenames
     templateData["&SURNAMES&"] = surnames
 
-    TemplateFill(templateData, "files/stellaris_name_list_template.txt", destFolder+tag+"_test.txt")
-    
+    TemplateFill(templateData, "files/stellaris_name_list_template.txt", destFolder + tag + "_test.txt")
+
+
 if __name__ == "__main__":
     MakeNameList("FRA")

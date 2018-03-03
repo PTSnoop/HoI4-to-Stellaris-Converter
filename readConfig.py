@@ -4,8 +4,9 @@ import sys
 import os.path
 import naive_parser
 
+
 def reformatPath(path, isDir):
-    path = path.replace("\\","/")
+    path = path.replace("\\", "/")
     if path[0] == '"' and path[-1] == '"':
         path = path[1:-1]
 
@@ -13,6 +14,7 @@ def reformatPath(path, isDir):
         path += "/"
 
     return path
+
 
 class Config:
     def __init__(self):
@@ -23,9 +25,9 @@ class Config:
         self.hoi4path = naive_parser.drill(self.configfile, "configuration", "HoI4directory")
         self.targetdir = naive_parser.drill(self.configfile, "configuration", "StellarisModdirectory")
 
-        print("Save file: "+self.savefile)
-        print("HoI4 location: "+self.hoi4path)
-        print("Stellaris mod path: "+self.targetdir)
+        print("Save file: " + self.savefile)
+        print("HoI4 location: " + self.hoi4path)
+        print("Stellaris mod path: " + self.targetdir)
 
         self.savefile = reformatPath(self.savefile, False)
         self.hoi4path = reformatPath(self.hoi4path, True)
@@ -44,7 +46,7 @@ class Config:
 
         for path in [self.savefile, self.hoi4path, self.targetdir]:
             if not os.path.exists(path):
-                print("Error: Could not find "+path)
+                print("Error: Could not find " + path)
                 sys.exit(1)
 
 

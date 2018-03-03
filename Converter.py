@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
-import os,sys,shutil
+import os
+import sys
+import shutil
 
 import naive_parser
 import makeNameList
@@ -12,14 +14,15 @@ import readConfig
 
 import logToFile
 
+
 class Converter:
     def __init__(self, savefileName, hoi4path):
         self.hoi4path = hoi4path
 
         self.converterDir = os.path.dirname(os.path.realpath(__file__))
-        self.converterDir = self.converterDir.replace("\\","/") + "/"
-        print("Running from: "+self.converterDir)
-        
+        self.converterDir = self.converterDir.replace("\\", "/") + "/"
+        print("Running from: " + self.converterDir)
+
         print("Parsing save file...")
         self.savefile = naive_parser.ParseSaveFile(savefileName)
         print("Reading save data...")
@@ -38,20 +41,20 @@ class Converter:
 
     def CopyMod(self, targetdir):
         name = "outputMod"
-        shutil.rmtree(targetdir+name, True)
-        print("Copying '"+self.converterDir+name +"' to '"+targetdir+name+"'...")
-        shutil.copytree(  self.converterDir+name,          targetdir+name)
-        print("Copying '"+self.converterDir+name+".mod' to '",targetdir+name+".mod'...")
-        shutil.copyfile(  self.converterDir+name+".mod",      targetdir+name+".mod")
-    
+        shutil.rmtree(targetdir + name, True)
+        print("Copying '" + self.converterDir + name + "' to '" + targetdir + name + "'...")
+        shutil.copytree(self.converterDir + name, targetdir + name)
+        print("Copying '" + self.converterDir + name + ".mod' to '", targetdir + name + ".mod'...")
+        shutil.copyfile(self.converterDir + name + ".mod", targetdir + name + ".mod")
+
     def makeFolders(self):
         print("Laying out folder structure...")
-        shutil.rmtree(self.converterDir+"outputMod", True)
-        shutil.copytree(self.converterDir+"outputMod_base", self.converterDir+"outputMod")
+        shutil.rmtree(self.converterDir + "outputMod", True)
+        shutil.copytree(self.converterDir + "outputMod_base", self.converterDir + "outputMod")
 
     def getUniverse(self):
         print("Creating the universe...")
-        self.universe = universe.Universe(self.savefile,self.hoi4path)
+        self.universe = universe.Universe(self.savefile, self.hoi4path)
         print("Establishing history...")
         self.universe.Load()
 
@@ -59,14 +62,14 @@ class Converter:
         hoi4flagpath = self.hoi4path + "gfx/flags/"
 
         for topNation in self.topNations:
-            print("Creating flag for "+topNation.tag+"...")
+            print("Creating flag for " + topNation.tag + "...")
             sourceFlagTga = hoi4flagpath + topNation.tag + "_" + topNation.government + ".tga"
             destFlagFolder = "outputMod/flags/convertedflags/"
-            flagconvert.CompileFlag(sourceFlagTga,destFlagFolder)
-    
+            flagconvert.CompileFlag(sourceFlagTga, destFlagFolder)
+
     def convertNameLists(self):
         for topNation in self.topNations:
-            print("Creating name list for "+topNation.tag+"...")
+            print("Creating name list for " + topNation.tag + "...")
             destNameListFolder = "outputMod/common/name_lists/"
             makeNameList.MakeNameList(topNation.tag, self.hoi4path, destNameListFolder)
 
@@ -85,7 +88,6 @@ class Converter:
 
 if __name__ == "__main__":
     print("BEGINNING CONVERSION")
-    #hoi4path = "D:/Steam/steamapps/common/Hearts of Iron IV/mod/Vannilla_Uruguay_End/"
     config = readConfig.Config()
 
     converter = Converter(config.savefile, config.hoi4path)
@@ -93,9 +95,3 @@ if __name__ == "__main__":
     converter.CopyMod(config.targetdir)
 
     print("ALL DONE!")
-
-    #hoi4path = "D:/Paradox Interactive/Hearts of Iron IV/mod/Vanilla_Uruguay_End/"
-    #savefileName = "Uruguay_1940_01_05_01.hoi4"
-    #converter = Converter(savefileName, hoi4path)
-    #converter.ConvertEverything()
-

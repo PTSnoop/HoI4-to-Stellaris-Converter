@@ -4,10 +4,12 @@ import naive_parser
 import universe
 import numpy
 
+
 class Dotdict(dict):
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
+
 
 class Events:
     def __init__(self, savefile, hoi4path, parser, theUniverse):
@@ -34,7 +36,8 @@ class Events:
         self.earthClass = self.universe.getEarthClass()
         self.earthEntity = self.universe.getEarthEntity()
 
-        if not self.earthOwner: self.earthOwner = "nobody"
+        if not self.earthOwner:
+            self.earthOwner = "nobody"
 
         planetsString = ""
         for e in range(len(empires)):
@@ -43,7 +46,8 @@ class Events:
 
         opinionPenalties = ""
         for judgedEmpire in empires:
-            if not judgedEmpire.nuclear: continue
+            if not judgedEmpire.nuclear:
+                continue
             for opinionatedEmpire in empires:
                 newPenalty = self.text_opinion_penalty
                 newPenalty = newPenalty.replace("&LONGTAG_OPINIONATED&", opinionatedEmpire.longTag())
@@ -54,7 +58,7 @@ class Events:
         for empire in empires:
             option = self.text_option.replace("&LONGTAG&", empire.longTag())
             optionsString += option
-        
+
         event = event.replace("&EARTH_TYPE_FLAG&", self.earthTypeFlag)
         event = event.replace("&EARTH_OWNER_LONGTAG&", self.earthOwner)
         event = event.replace("&EARTH_PC_TYPE&", self.earthClass)
@@ -63,10 +67,11 @@ class Events:
         event = event.replace("&OPINION_PENALTIES&", opinionPenalties)
         event = event.replace("&OPTIONS&", optionsString)
 
-        open("outputMod/events/converter_events.txt","w").write(event)
+        open("outputMod/events/converter_events.txt", "w").write(event)
 
     def makePlanet(self, empire, idnumber):
-        if idnumber > 6: return ""
+        if idnumber > 6:
+            return ""
         planet = self.text_planet
 
         '''
@@ -91,7 +96,7 @@ class Events:
             &INFLUENCE& : 500
         '''
 
-        planet_id = "planet_" + str(1+ (idnumber//3)) + "_" + str(1+ (idnumber % 3))
+        planet_id = "planet_" + str(1 + (idnumber // 3)) + "_" + str(1 + (idnumber % 3))
         planet_size_delta = str(empire.planetSize - 16)
         planet_pc_type = empire.planetClass
         owner_tag = empire.tag
@@ -100,7 +105,7 @@ class Events:
         government = self.getGovernment(empire)
 
         colour = empire.colour
-        modifier = "converted_"+str(empire.penalty)+"_"
+        modifier = "converted_" + str(empire.penalty) + "_"
         if empire.nuclear:
             modifier += "nuclear"
         else:
@@ -127,42 +132,45 @@ class Events:
         if self.earthOwner != empire.longTag():
             starbaseString += self.text_starbase
 
-        planet = planet.replace("&PLANET_ID&",planet_id)
-        planet = planet.replace("&PLANET_SIZE_DELTA&",planet_size_delta)
-        planet = planet.replace("&PLANET_PC_TYPE&",planet_pc_type)
-        planet = planet.replace("&OWNER_TAG&",owner_tag)
-        planet = planet.replace("&OWNER_LONGTAG&",owner_longtag)
-        planet = planet.replace("&AUTHORITY&",government.authority)
-        planet = planet.replace("&ETHICS&",ethicsString)
-        planet = planet.replace("&CIVICS&",civicsString)
-        planet = planet.replace("&COLOUR&",colour)
-        planet = planet.replace("&MODIFIER&",modifier)
-        planet = planet.replace("&NEW_HUMANS&",humanString)
-        planet = planet.replace("&STARBASE&",starbaseString)
-        planet = planet.replace("&MINERALS&",minerals)
-        planet = planet.replace("&ENERGY&",energy)
-        planet = planet.replace("&FOOD&",food)
-        planet = planet.replace("&INFLUENCE&",influence)
-        
+        planet = planet.replace("&PLANET_ID&", planet_id)
+        planet = planet.replace("&PLANET_SIZE_DELTA&", planet_size_delta)
+        planet = planet.replace("&PLANET_PC_TYPE&", planet_pc_type)
+        planet = planet.replace("&OWNER_TAG&", owner_tag)
+        planet = planet.replace("&OWNER_LONGTAG&", owner_longtag)
+        planet = planet.replace("&AUTHORITY&", government.authority)
+        planet = planet.replace("&ETHICS&", ethicsString)
+        planet = planet.replace("&CIVICS&", civicsString)
+        planet = planet.replace("&COLOUR&", colour)
+        planet = planet.replace("&MODIFIER&", modifier)
+        planet = planet.replace("&NEW_HUMANS&", humanString)
+        planet = planet.replace("&STARBASE&", starbaseString)
+        planet = planet.replace("&MINERALS&", minerals)
+        planet = planet.replace("&ENERGY&", energy)
+        planet = planet.replace("&FOOD&", food)
+        planet = planet.replace("&INFLUENCE&", influence)
+
         return planet
 
     def getGovernment(self, empire):
         governmentSet = naive_parser.ParseSaveFile("files/governments.txt")
 
-        empire.ideology = empire.ideology.replace("_neutral","")
+        empire.ideology = empire.ideology.replace("_neutral", "")
         government = Dotdict({})
 
-        if naive_parser.drill(governmentSet,"governments",empire.ideology):
-            government.authority = naive_parser.drill(governmentSet,"governments",empire.ideology,"authority")
-            government.ethics = naive_parser.splitstrings(naive_parser.drill(governmentSet,"governments",empire.ideology,"ethics",""))
-            government.civics = naive_parser.splitstrings(naive_parser.drill(governmentSet,"governments",empire.ideology,"civics",""))
-        
+        if naive_parser.drill(governmentSet, "governments", empire.ideology):
+            government.authority = naive_parser.drill(
+                governmentSet, "governments", empire.ideology, "authority")
+            government.ethics = naive_parser.splitstrings(naive_parser.drill(
+                governmentSet, "governments", empire.ideology, "ethics", ""))
+            government.civics = naive_parser.splitstrings(naive_parser.drill(
+                governmentSet, "governments", empire.ideology, "civics", ""))
+
         else:
-            print("WARNING: Did not recognise "+empire.longTag()+"'s \""+empire.ideology+"\" ideology. Falling back to generic democracy.")
+            print("WARNING: Did not recognise " + empire.longTag() + "'s \"" +
+                  empire.ideology + "\" ideology. Falling back to generic democracy.")
+
             government.authority = "auth_democratic"
-            government.ethics = ["ethic_egalitarian","ethic_pacifist","ethic_xenophobe"]
+            government.ethics = ["ethic_egalitarian", "ethic_pacifist", "ethic_xenophobe"]
             government.civics = ["civic_parliamentary_system", "civic_environmentalist"]
 
         return government
-
-

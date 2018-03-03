@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 
-import os,sys
-import re,yaml
+import os
+import sys
+import re
+import yaml
 import naive_parser
+
 
 def getCountryNames(hoi4path):
     countryNameYmlPath = hoi4path + "localisation/countries_mod_l_english.yml"
@@ -11,15 +14,15 @@ def getCountryNames(hoi4path):
 
     try:
         ymlFile = open(countryNameYmlPath, encoding="utf-8")
-    except:
+    except BaseException:
         ymlFile = open(countryNameYmlPath)
     ymlData = ymlFile.read()
     ymlData = "\n".join(ymlData.split("\n")[1:])[1:]
 
-    ymlData = re.sub(r':[0-9]*',r':', ymlData)
-    ymlData = re.sub(r'\n ',r'\n', ymlData)
+    ymlData = re.sub(r':[0-9]*', r':', ymlData)
+    ymlData = re.sub(r'\n ', r'\n', ymlData)
 
-    ymlData = ymlData.encode("ascii",errors="ignore")
+    ymlData = ymlData.encode("ascii", errors="ignore")
     countryNames = yaml.load(ymlData)
 
 #    if isinstance(countryNames, str):
@@ -37,22 +40,22 @@ def getCountryNames(hoi4path):
 
     return countryNames
 
+
 def getCityNames(hoi4path):
     countryNameYmlPath = hoi4path + "localisation/victory_points_l_english.yml"
 
     try:
         ymlData = open(countryNameYmlPath).read()
-    except:
+    except BaseException:
         data = open(countryNameYmlPath, 'rb').read()
         ymlData = data.decode("utf8", "ignore")
 
-
     ymlData = "\n".join(ymlData.split("\n")[1:])[1:]
 
-    ymlData = re.sub(r':[0-9]*',r':', ymlData)
-    ymlData = re.sub(r'\n ',r'\n', ymlData)
+    ymlData = re.sub(r':[0-9]*', r':', ymlData)
+    ymlData = re.sub(r'\n ', r'\n', ymlData)
 
-    ymlData = ymlData.encode("ascii",errors="ignore")
+    ymlData = ymlData.encode("ascii", errors="ignore")
     cityNames = yaml.load(ymlData)
 
     return list(cityNames.values())

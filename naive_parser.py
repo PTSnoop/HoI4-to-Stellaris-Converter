@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 
-import sys,os
-import numpy,re
+import sys
+import os
+import numpy
+import re
 from collections import defaultdict
 
 import properties
 
+
 class Nation:
-    def __init__(self,tag):
+    def __init__(self, tag):
         self.tag = tag
         self.government = ""
         self.ideology = ""
@@ -25,12 +28,13 @@ class Nation:
     def __str__(self):
         printstring = ""
         printstring += self.tag + "\n"
-        printstring += "\t"+self.government+" "+self.ideology + "\n"
+        printstring += "\t" + self.government + " " + self.ideology + "\n"
         printstring += "\tPopulation: {:.3f}".format(self.population) + "\n"
         printstring += "\tIndustry: {:.3f}".format(self.industry) + "\n"
         printstring += "\tWarscore: {:.3f}".format(self.warscore) + "\n"
         printstring += "\tOverall: {:.3f}".format(self.points) + "\n"
         return printstring
+
 
 def drill(blob, *args):
     try:
@@ -38,11 +42,13 @@ def drill(blob, *args):
         for arg in args:
             thing = thing[arg][0]
         return thing
-    except:
+    except BaseException:
         return ""
 
+
 def unquote(string):
-    if string == "": return ""
+    if string == "":
+        return ""
     string = trim(string)
     if string[0] == '"':
         string = string[1:]
@@ -50,15 +56,20 @@ def unquote(string):
         string = string[:-1]
     return string
 
+
 def trim(string):
-    if string == "": return ""
+    if string == "":
+        return ""
     while string[0] == ' ' or string[0] == '\t':
         string = string[1:]
-        if string == "": return ""
+        if string == "":
+            return ""
     while string[-1] == ' ' or string[-1] == '\t':
         string = string[:-1]
-        if string == "": return ""
+        if string == "":
+            return ""
     return string
+
 
 def printstack(stack):
     for blob in stack:
@@ -67,10 +78,12 @@ def printstack(stack):
         print("-")
     print("---")
 
+
 def splitstrings(string):
     splits = string.split(",")
     splits = [unquote(s) for s in splits]
     return splits
+
 
 def ParseSaveFile(path, debug=False):
     try:
@@ -80,24 +93,23 @@ def ParseSaveFile(path, debug=False):
         traceback.print_exc()
         print("Carrying on regardless.")
         alllines = open(path, encoding="utf-8", errors="ignore").read()
-        
-    return ParseSaveData(alllines,debug)
-    #lines = open(path, encoding="utf-8").readlines()
+
+    return ParseSaveData(alllines, debug)
+
 
 def ParseSaveData(alllines, debug=False):
 
-
     # Comments are troublesome
-    #alllines = re.sub(r"#[^\n]*?\n",r"\n",alllines)
+    # alllines = re.sub(r"#[^\n]*?\n",r"\n",alllines)
 
-    alllines = re.sub( r"=\n\t*{" , r"={" , alllines)
-    alllines = re.sub( r"=\n *{" , r"={" , alllines)
+    alllines = re.sub(r"=\n\t*{", r"={", alllines)
+    alllines = re.sub(r"=\n *{", r"={", alllines)
 
     lines = alllines.split("\n")
     lines = [item for item in lines if len(trim(item)) > 0 and trim(item)[0] != "#"]
     alllines = "\n".join(lines)
 
-    alllines = alllines.replace("}","\n}\n").replace("{","{\n")
+    alllines = alllines.replace("}", "\n}\n").replace("{", "{\n")
     lines = alllines.split("\n")
 
     stack = [defaultdict(list)]
@@ -112,13 +124,13 @@ def ParseSaveData(alllines, debug=False):
         print("Parsing save data...")
 
     for line in lines:
-        i+=1
+        i += 1
 
         if i > nextPercentMark and fivePercentMark > 1000:
-            print(str((5*i) // fivePercentMark) + "%")
+            print(str((5 * i) // fivePercentMark) + "%")
             nextPercentMark += fivePercentMark
 
-        line = trim(line.replace("\n","").replace("\t",""))
+        line = trim(line.replace("\n", "").replace("\t", ""))
 
         if i == 1:
             # First line weirdness
@@ -138,13 +150,13 @@ def ParseSaveData(alllines, debug=False):
             print(keystack)
             print("")
             input()
-        
+
         if line == "":
             continue
 
         end = False
         if '}' in line:
-            line = trim(line.replace("}",""))
+            line = trim(line.replace("}", ""))
             end = True
 
         if line != "":
@@ -163,13 +175,14 @@ def ParseSaveData(alllines, debug=False):
                 stack[-1][key].append(value)
 
         if end:
-            stack[-2][ keystack[-1] ].append(stack[-1])
+            stack[-2][keystack[-1]].append(stack[-1])
             stack.pop()
             keystack.pop()
-                
+
     savefile = stack[0]
 
     return savefile
+
 
 class Parser:
     def __init__(self, savefile, hoi4path):
@@ -180,20 +193,28 @@ class Parser:
         self.factories = {}
         self.warscore = {}
 
-        states = drill(savefile,"states")
+        states = drill(savefile, "states")
         for state in states:
-            #print(drill(savefile,"states",state))
-            owner = unquote(drill(savefile,"states",state,"owner"))
-            manpower = drill(savefile,"states",state,"manpower_pool","total")
+            owner = unquote(drill(savefile, "states", state, "owner"))
+            manpower = drill(savefile, "states", state, "manpower_pool", "total")
             if owner in self.pops:
                 self.pops[unquote(owner)] += int(manpower)
             else:
                 self.pops[unquote(owner)] = int(manpower)
 
-            buildingtypes = drill(savefile,"states",state,"buildings")
+            buildingtypes = drill(savefile, "states", state, "buildings")
             for buildingtype in buildingtypes:
-                rawbuildingcount = trim(drill(savefile,"states",state,"buildings",buildingtype,"level",""))
-                if rawbuildingcount == "": continue
+                rawbuildingcount = trim(
+                    drill(
+                        savefile,
+                        "states",
+                        state,
+                        "buildings",
+                        buildingtype,
+                        "level",
+                        ""))
+                if rawbuildingcount == "":
+                    continue
                 buildingcount = rawbuildingcount.split(" ")
                 for building in buildingcount:
                     if owner in self.factories:
@@ -203,36 +224,39 @@ class Parser:
 
             wars = savefile["previous_peace"]
             for war in wars:
-                for winner in drill(war,"winners"):
-                    score = int(drill(war,"winners",winner,"original_score"))
+                for winner in drill(war, "winners"):
+                    score = int(drill(war, "winners", winner, "original_score"))
                     if winner in self.warscore:
                         self.warscore[unquote(winner)] += int(score)
                     else:
                         self.warscore[unquote(winner)] = int(score)
             for war in wars:
-                for loser in drill(war,"losers"):
+                for loser in drill(war, "losers"):
                     self.warscore[loser] = 0
 
         for nation in self.pops:
-            if not nation in self.warscore:
+            if nation not in self.warscore:
                 self.warscore[nation] = 0
 
         self.puppets = []
 
-        for country in drill(savefile,"countries"):
-            relation1 = drill(savefile,"countries",country,"diplomacy","active_relations")
+        for country in drill(savefile, "countries"):
+            relation1 = drill(savefile, "countries", country, "diplomacy", "active_relations")
             for relation in relation1:
-                relationdata = drill(relation1,relation)
+                relationdata = drill(relation1, relation)
                 if "puppet" in relationdata:
-                    puppetry = drill(relationdata,"puppet")
-                    self.puppets.append([unquote(drill(puppetry,"first")), unquote(drill(puppetry,"second"))])
+                    puppetry = drill(relationdata, "puppet")
+                    self.puppets.append([unquote(drill(puppetry, "first")),
+                                         unquote(drill(puppetry, "second"))])
 
         for puppetpair in self.puppets:
             overlord = puppetpair[0]
             vassal = puppetpair[1]
 
-            if not overlord in self.pops: continue
-            if not vassal in self.pops: continue
+            if overlord not in self.pops:
+                continue
+            if vassal not in self.pops:
+                continue
             self.pops[overlord] += 0.25 * self.pops[vassal]
             self.factories[overlord] += 0.25 * self.factories[vassal]
             self.warscore[overlord] += 0.25 * self.warscore[vassal]
@@ -242,33 +266,44 @@ class Parser:
             self.warscore[vassal] = 0.1 * self.warscore[vassal]
 
         capitals = {}
-        for country in drill(savefile,"countries"):
-            capitalProvince = drill(savefile,"countries",country,"capital")
+        for country in drill(savefile, "countries"):
+            capitalProvince = drill(savefile, "countries", country, "capital")
             capitals[country] = capitalProvince
 
         governments = {}
         ideologies = {}
-        for country in drill(savefile,"countries"):
-            rulingParty = drill(savefile,"countries",country,"politics","ruling_party")
+        for country in drill(savefile, "countries"):
+            rulingParty = drill(savefile, "countries", country, "politics", "ruling_party")
             governments[country] = rulingParty
 
-            ideology = drill(savefile,"countries",country,"politics","parties",rulingParty,"country_leader","ideology")
+            ideology = drill(
+                savefile,
+                "countries",
+                country,
+                "politics",
+                "parties",
+                rulingParty,
+                "country_leader",
+                "ideology")
             ideologies[country] = ideology
 
         popmax = float(self.pops[max(self.pops, key=self.pops.get)])
         factorymax = float(self.factories[max(self.factories, key=self.factories.get)])
         scoremax = float(self.warscore[max(self.warscore, key=self.warscore.get)])
 
-        if (popmax < 1): popmax = 1
-        if (factorymax < 1): factorymax = 1
-        if (scoremax < 1): scoremax = 1
+        if (popmax < 1):
+            popmax = 1
+        if (factorymax < 1):
+            factorymax = 1
+        if (scoremax < 1):
+            scoremax = 1
 
         def tweakedsort(a):
-            popproportion = float(self.pops[a])/popmax
-            factoryproportion = float(self.factories[a])/factorymax
-            scoreproportion = float(self.warscore[a])/scoremax
+            popproportion = float(self.pops[a]) / popmax
+            factoryproportion = float(self.factories[a]) / factorymax
+            scoreproportion = float(self.warscore[a]) / scoremax
             factor = (popproportion * factoryproportion)
-            factor *= 1.0 + (0.2*scoreproportion)
+            factor *= 1.0 + (0.2 * scoreproportion)
             return factor
 
         self.totalScore = 0.0
@@ -279,13 +314,12 @@ class Parser:
 
         self.topNations = []
         self.smallNations = []
-        #for nation in sorted(self.factories, key=self.pops.get):
         for nation in sorted(self.factories, key=tweakedsort, reverse=True):
 
             ndata = Nation(nation)
-            ndata.population = self.pops[nation]/popmax
-            ndata.industry = self.factories[nation]/factorymax
-            ndata.warscore = self.warscore[nation]/scoremax
+            ndata.population = self.pops[nation] / popmax
+            ndata.industry = self.factories[nation] / factorymax
+            ndata.warscore = self.warscore[nation] / scoremax
             ndata.points = tweakedsort(nation)
 
             ndata.government = governments[nation]
@@ -297,7 +331,7 @@ class Parser:
             else:
                 ndata.climate = "pc_arid"
 
-            oldtag = unquote(drill(savefile,"countries",nation,"original_tag"))
+            oldtag = unquote(drill(savefile, "countries", nation, "original_tag"))
             if oldtag:
                 ndata.tag = oldtag
 
@@ -307,27 +341,26 @@ class Parser:
                 self.topNations.append(ndata)
 
         def getIndPerCapita(a):
-            return 1000 * (self.factories[a]/self.pops[a])
+            return 1000 * (self.factories[a] / self.pops[a])
 
         def gini_coeff(x):
             # requires all values in x to be zero or positive numbers,
             # otherwise results are undefined
             n = len(x)
             s = x.sum()
-            r = numpy.argsort(numpy.argsort(-x)) # calculates zero-based ranks
-            return 1 - (2.0 * (r*x).sum() + s)/(n*s)
+            r = numpy.argsort(numpy.argsort(-x))  # calculates zero-based ranks
+            return 1 - (2.0 * (r * x).sum() + s) / (n * s)
 
         villageSize = 1000
         giniVillage = []
         maxWealth = 0.0
         for nation in sorted(self.pops):
-            if self.pops[nation]/popmax < 0.005:
+            if self.pops[nation] / popmax < 0.005:
                 continue
-            wealth = (self.factories[nation]/factorymax) / (self.pops[nation]/popmax)
-            #print("{}\t{:.3f}\t{:.3f}\t{:.3f}".format(nation,self.pops[nation]/popmax,self.factories[nation]/factorymax,wealth))
+            wealth = (self.factories[nation] / factorymax) / (self.pops[nation] / popmax)
             if wealth > maxWealth:
                 maxWealth = wealth
-            villagerCount = int(numpy.floor(villageSize*self.pops[nation]/popmax))
+            villagerCount = int(numpy.floor(villageSize * self.pops[nation] / popmax))
             for i in range(villagerCount):
                 giniVillage.append(wealth)
 
@@ -348,6 +381,7 @@ class Parser:
     def getGiniCoeff(self):
         return self.gini
 
+
 if __name__ == "__main__":
     savefile = ParseSaveFile("postwar_1948_06_16_01.hoi4")
     parsedfile = Parser(savefile, "D:/Steam/steamapps/common/Hearts of Iron IV/")
@@ -355,4 +389,4 @@ if __name__ == "__main__":
     gini = parsedfile.getGiniCoeff()
     for topNation in topNations:
         print(topNation)
-    print("Gini Coefficient: "+str(gini))
+    print("Gini Coefficient: " + str(gini))
