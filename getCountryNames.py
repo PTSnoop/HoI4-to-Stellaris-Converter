@@ -5,12 +5,13 @@ import sys
 import re
 import yaml
 import naive_parser
+from config import Config
 
 
-def getCountryNames(hoi4path):
-    countryNameYmlPath = hoi4path + "localisation/countries_mod_l_english.yml"
+def getCountryNames():
+    countryNameYmlPath = Config().getModdedHoi4File("localisation/countries_mod_l_english.yml")
     if not os.path.exists(countryNameYmlPath):
-        countryNameYmlPath = hoi4path + "localisation/countries_l_english.yml"
+        countryNameYmlPath = Config().getModdedHoi4File("localisation/countries_l_english.yml")
 
     try:
         ymlFile = open(countryNameYmlPath, encoding="utf-8")
@@ -41,8 +42,8 @@ def getCountryNames(hoi4path):
     return countryNames
 
 
-def getCityNames(hoi4path):
-    countryNameYmlPath = hoi4path + "localisation/victory_points_l_english.yml"
+def getCityNames():
+    countryNameYmlPath = Config().getModdedHoi4File("localisation/victory_points_l_english.yml")
 
     try:
         ymlData = open(countryNameYmlPath).read()

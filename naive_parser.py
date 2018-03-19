@@ -126,7 +126,7 @@ def ParseSaveData(alllines, debug=False):
     for line in lines:
         i += 1
 
-        if i > nextPercentMark and fivePercentMark > 1000:
+        if i > nextPercentMark and fivePercentMark > 5000:
             print(str((5 * i) // fivePercentMark) + "%")
             nextPercentMark += fivePercentMark
 
@@ -185,9 +185,8 @@ def ParseSaveData(alllines, debug=False):
 
 
 class Parser:
-    def __init__(self, savefile, hoi4path):
+    def __init__(self, savefile):
         self.savefile = savefile
-        self.hoi4path = hoi4path
 
         self.pops = {}
         self.factories = {}
@@ -317,7 +316,7 @@ class Parser:
         for nation in self.factories:
             self.totalScore += tweakedsort(nation)
 
-        climateMap = properties.getClimates(self.hoi4path)
+        climateMap = properties.getClimates()
 
         self.topNations = []
         self.smallNations = []
@@ -344,14 +343,8 @@ class Parser:
                 ndata.tag = oldtag
 
             claimedStates += self.stateCount[nation]
-            print(ndata)
-            print(self.stateCount[nation])
-            print(claimedStates)
-            print(self.totalStateCount/10)
-
             if len(self.topNations) < 6 and (tweakedsort(nation) > 0.1 or claimedStates < self.totalStateCount/10):
                 self.topNations.append(ndata)
-                print("TOP")
             else:
                 self.smallNations.append(ndata)
 
@@ -399,7 +392,7 @@ class Parser:
 
 if __name__ == "__main__":
     savefile = ParseSaveFile("postwar_1948_06_16_01.hoi4")
-    parsedfile = Parser(savefile, "D:/Steam/steamapps/common/Hearts of Iron IV/")
+    parsedfile = Parser(savefile)
     topNations = parsedfile.getTopNations()
     gini = parsedfile.getGiniCoeff()
     for topNation in topNations:

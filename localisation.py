@@ -6,14 +6,15 @@ import universe
 import sys
 import numpy
 import codecs
+from config import Config
 
 
 class Localisation:
-    def __init__(self, savefile, hoi4path, parser, theUniverse):
-        self.savefile = savefile
-        self.hoi4path = hoi4path
+    def __init__(self, theUniverse):
+        self.savefile = Config().getSaveData()
+        self.hoi4path = Config().getHoi4Path()
         self.universe = theUniverse
-        self.parser = parser
+        self.parser = Config().getParser()
 
         self.localise()
 
@@ -21,7 +22,7 @@ class Localisation:
 
         self.empireNames = {}
 
-        countryNames = getCountryNames.getCountryNames(self.hoi4path)
+        countryNames = getCountryNames.getCountryNames()
         for empire in self.universe.empires:
             longtag = empire.longTag()
             empireName = countryNames[longtag]

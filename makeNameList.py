@@ -6,6 +6,7 @@ import re
 import random
 import naive_parser
 import unicodedata
+from config import Config
 
 
 def removeAccents(inputNames):
@@ -69,32 +70,28 @@ def TemplateFill(data, filename, writefilename):
     output.write(filedata)
 
 
-def MakeNameList(tag, hoi4path, destFolder):
+def MakeNameList(tag, destFolder):
+    hoi4path = Config().getHoi4Path()
 
     includeGenericUnitNames = True
 
-    namespath = hoi4path + "common/names/01_names.txt"
-    if os.path.exists(namespath):
-        print("Reading names from modded " + namespath)
-        names = naive_parser.ParseSaveFile(namespath)
-    else:
-        print("Reading names from " + hoi4path + "common/names/00_names.txt")
-        names = naive_parser.ParseSaveFile(hoi4path + "common/names/00_names.txt")
+    namespath = Config().getModdedHoi4File("common/names/01_names.txt")
+    if not namespath:
+        namespath = Config().getModdedHoi4File("common/names/00_names.txt")
+    print("Reading names from " + namespath)
+    names = naive_parser.ParseSaveFile(namespath)
 
-    modUnitNamesPath = hoi4path + "common/units/names/01_names.txt"
-    if os.path.exists(modUnitNamesPath):
+    modUnitNamesPath = Config().getModdedHoi4File("common/units/names/01_names.txt")
+    if modUnitNamesPath:
         print("Reading unit names from modded " + modUnitNamesPath)
         unitnames = naive_parser.ParseSaveFile(modUnitNamesPath)
         includeGenericUnitNames = False
     else:
-        specialUnitNamePath = hoi4path + "common/units/names/00_" + tag + "_names.txt"
-        if os.path.exists(specialUnitNamePath):
-            print("Reading unique unit names from " + specialUnitNamePath)
-            unitnames = naive_parser.ParseSaveFile(specialUnitNamePath)
-        else:
-            print("Could not find " + specialUnitNamePath)
-            print("Reading unit names from " + hoi4path + "common/units/names/00_names.txt")
-            unitnames = naive_parser.ParseSaveFile(hoi4path + "common/units/names/00_names.txt")
+        specialUnitNamePath = Config().getModdedHoi4File("common/units/names/00_" + tag + "_names.txt")
+        if not specialUnitNamePath:
+            specialUnitNamePath = Config().getModdedHoi4File("common/units/names/00_names.txt")
+        print("Reading unique unit names from " + specialUnitNamePath)
+        unitnames = naive_parser.ParseSaveFile(specialUnitNamePath)
 
     malenames = stringlist_drill(names, tag, "male", "names")
     femalenames = stringlist_drill(names, tag, "female", "names")

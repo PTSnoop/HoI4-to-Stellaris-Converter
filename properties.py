@@ -7,6 +7,7 @@ import re
 import colorsys
 
 import naive_parser
+import config
 
 
 def colourDistance(hsv1, hsv2):
@@ -18,8 +19,8 @@ def colourDistance(hsv1, hsv2):
     return math.sqrt(hueDistance * hueDistance + satDistance * satDistance + valDistance * valDistance)
 
 
-def getColours(hoi4path):
-    hoi4ColourData = naive_parser.ParseSaveFile(hoi4path + "common/countries/colors.txt")
+def getColours():
+    hoi4ColourData = naive_parser.ParseSaveFile(config.Config().getModdedHoi4File("common/countries/colors.txt"))
     stellarisGreyData = {
         "grey": [0.65, 0.05, 0.35],
         "dark_grey": [0.65, 0.05, 0.22],
@@ -86,11 +87,12 @@ def getColours(hoi4path):
     return nameSet
 
 
-def getStates(hoi4path):
+def getStates():
     stateMap = {}
 
-    for filename in os.listdir(hoi4path + "history/states/"):
-        stateData = open(hoi4path + "history/states/" + filename).read()
+    statepath = config.Config().getModdedHoi4File("history/states/")
+    for filename in os.listdir(statepath):
+        stateData = open(statepath + filename).read()
 
         stateData = stateData.replace("=\n{", "={")
         stateData = stateData.replace("=\n\t{", "={")
@@ -106,8 +108,7 @@ def getStates(hoi4path):
         state = naive_parser.ParseSaveData(stateData)
 
         if 0 == len(state.keys()):
-            print("WARNING: \"" + hoi4path + "history/states/" +
-                  filename + "\" could not be parsed. Skipping.")
+            print("WARNING: \"" + statepath + filename + "\" could not be parsed. Skipping.")
             continue
         stateId = int(naive_parser.drill(state, "state", "id"))
         provinces = naive_parser.drill(state, "state", "provinces", "").split(" ")
@@ -124,13 +125,14 @@ def getStates(hoi4path):
     return stateMap
 
 
-def getClimates(hoi4path):
+def getClimates():
 
     climateMap = {}
-    stateMap = getStates(hoi4path)
+    stateMap = getStates()
 
-    for filename in os.listdir(hoi4path + "map/strategicregions/"):
-        climateData = naive_parser.ParseSaveFile(hoi4path + "map/strategicregions/" + filename)
+    strategicRegionsPath = config.Config().getModdedHoi4File("map/strategicregions/")
+    for filename in os.listdir(strategicRegionsPath):
+        climateData = naive_parser.ParseSaveFile(strategicRegionsPath + filename)
         provinces = naive_parser.drill(climateData, "strategic_region", "provinces", "").split(" ")
         periodses = naive_parser.drill(climateData, "strategic_region", "weather")
         if "period" not in periodses:
@@ -176,7 +178,7 @@ def getClimates(hoi4path):
         elif averageTemperature > 10.0:
             climate = "pc_arid"
         elif averageTemperature < 4.7:
-            climate = "pc_savanna"
+            climate = "pc_savannah"
         else:
             climate = "pc_alpine"
 
@@ -192,5 +194,4 @@ def getClimates(hoi4path):
 
 
 if __name__ == "__main__":
-    hoi4path = "D:/Files/StellarisConverter/converter/Kr/"
-    c = getStates(hoi4path)
+    c = getColours()

@@ -18,9 +18,7 @@ import logToFile
 
 class Converter:
     def __init__(self):
-        self.savefile = Config().getSaveData()
-        self.parser = Config().getParser()
-        self.topNations = Config().getParser().getTopNations()
+        Config().Init()
 
     def ConvertEverything(self):
         self.makeFolders()
@@ -53,18 +51,18 @@ class Converter:
 
     def getUniverse(self):
         print("Creating the universe...")
-        self.universe = universe.Universe(Config().getSaveData(), Config().getHoi4Path())
+        self.universe = universe.Universe(Config().getSaveData())
         print("Establishing history...")
         self.universe.Load()
 
     def convertFlags(self):
-        hoi4flagpath = Config().getHoi4Path() + "gfx/flags/"
+        hoi4flagpath = "gfx/flags/"
         topNations = Config().getParser().getTopNations()
 
         for topNation in topNations:
             print("Creating flag for " + topNation.tag + "...")
-            sourceFlagTga = hoi4flagpath + topNation.tag + "_" + topNation.government + ".tga"
-            destFlagFolder = "outputMod/flags/convertedflags/"
+            sourceFlagTga = Config().getModdedHoi4File(hoi4flagpath + topNation.tag + "_" + topNation.government + ".tga")
+            destFlagFolder = Config().getOutputPath() + "flags/convertedflags/"
             flagconvert.CompileFlag(sourceFlagTga, destFlagFolder)
 
     def convertNameLists(self):
@@ -72,7 +70,7 @@ class Converter:
         for topNation in topNations:
             print("Creating name list for " + topNation.tag + "...")
             destNameListFolder = "outputMod/common/name_lists/"
-            makeNameList.MakeNameList(topNation.tag, Config().getHoi4Path(), destNameListFolder)
+            makeNameList.MakeNameList(topNation.tag, destNameListFolder)
 
     def convertLocalisation(self):
         print("Converting localisation...")
@@ -81,7 +79,7 @@ class Converter:
         parser = Config().getParser()
         hoi4path = Config().getHoi4Path()
 
-        localiser = localisation.Localisation(savefile, hoi4path, parser, self.universe)
+        localiser = localisation.Localisation(self.universe)
         print("Writing localisation...")
         localiser.writeLocalisation()
         localiser.writeSyncedLocalisation()
@@ -93,7 +91,7 @@ class Converter:
         parser = Config().getParser()
         hoi4path = Config().getHoi4Path()
 
-        self.events = events.Events(savefile, hoi4path, parser, self.universe)
+        self.events = events.Events(self.universe)
         self.events.makeEvents()
 
 

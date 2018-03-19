@@ -12,6 +12,7 @@ class Config(BorgSingleton):
     def __init__(self):
         BorgSingleton.__init__(self)
         if hasattr(self, 'loaded'): return
+        self.loaded = True
 
         self.configfile = naive_parser.ParseSaveFile("configuration.txt")
         config = naive_parser.drill(self.configfile, "configuration")
@@ -40,13 +41,12 @@ class Config(BorgSingleton):
         if not self.isSane():
             sys.exit(0)
 
+    def Init(self):
         print("Parsing save file...")
         self.savefile = naive_parser.ParseSaveFile(self.savefileName)
         print("Reading save data...")
-        self.parser = naive_parser.Parser(self.savefile, self.hoi4Path)
+        self.parser = naive_parser.Parser(self.savefile)
         print("Save file parsed.")
-
-        self.loaded = True
 
     def isSane(self):
         if self.savefileName == "":
@@ -85,12 +85,10 @@ class Config(BorgSingleton):
     def getModdedHoi4File(self, targetPath):
         # TODO make this work with multiple mods at the same time
         pathThatExists = self.getHoi4ModPath() + targetPath
-        print(pathThatExists)
         if os.path.exists(pathThatExists): return pathThatExists
-
         pathThatExists = self.getHoi4Path() + targetPath
-        print(pathThatExists)
         if os.path.exists(pathThatExists): return pathThatExists
+        print("Warning: Could not find HoI4 file "+targetPath)
         return ""
 
     def getConverterDir(self):  return self.converterDir

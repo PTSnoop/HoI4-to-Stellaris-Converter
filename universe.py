@@ -9,6 +9,7 @@ import properties
 import yaml
 import numpy
 from enum import Enum
+from config import Config
 
 
 class Event:
@@ -55,7 +56,7 @@ class Empire:
         if self.industry > 0.6:
             self.planetClass = "pc_continental"
         elif self.industry > 0.4:
-            if self.climate in ["pc_arid", "pc_desert", "pc_savanna"]:
+            if self.climate in ["pc_arid", "pc_desert", "pc_savannah"]:
                 self.planetClass = "pc_tropical"
             else:
                 self.planetClass = "pc_ocean"
@@ -87,14 +88,14 @@ class Empire:
 
 
 class Universe:
-    def __init__(self, savefile, hoi4path):
+    def __init__(self, savefile):
         self.savefile = savefile
-        self.hoi4path = hoi4path
+        self.hoi4path = Config().getHoi4Path()
         with open("files/Events.yml") as stream:
             self.eventStrings = yaml.load(stream)
 
     def Load(self):
-        parser = naive_parser.Parser(self.savefile, self.hoi4path)
+        parser = naive_parser.Parser(self.savefile)
         self.topNations = parser.getTopNations()
         self.smallNations = parser.getSmallNations()
         self.gini = parser.getGiniCoeff()
@@ -224,7 +225,7 @@ class Universe:
         # for event in self.events:
         #    print(event)
 
-        colourMap = properties.getColours(self.hoi4path)
+        colourMap = properties.getColours()
 
         for empire in self.empires:
 
@@ -240,16 +241,14 @@ class Universe:
 
         tagToName = {}
         tagToAdj = {}
-        cityNames = ["Warsaw"]
-        if self.hoi4path:
-            cityNames = getCountryNames.getCityNames(self.hoi4path)
-            countryNames = getCountryNames.getCountryNames(self.hoi4path)
-            for empire in self.topNations + self.smallNations:
-                name = countryNames[empire.longTag() + "_DEF"]
-                name = name.replace("The", "the")
-                tagToName[empire.tag] = name
-                adj = countryNames[empire.longTag() + "_ADJ"]
-                tagToAdj[empire.tag] = adj
+        cityNames = getCountryNames.getCityNames()
+        countryNames = getCountryNames.getCountryNames()
+        for empire in self.topNations + self.smallNations:
+            name = countryNames[empire.longTag() + "_DEF"]
+            name = name.replace("The", "the")
+            tagToName[empire.tag] = name
+            adj = countryNames[empire.longTag() + "_ADJ"]
+            tagToAdj[empire.tag] = adj
 
         numpy.random.seed(self.seed)
 
@@ -400,7 +399,7 @@ class Universe:
 if __name__ == "__main__":
     savefile = naive_parser.ParseSaveFile("postwar_1948_06_16_01.hoi4")
 
-    universe = Universe(savefile, "D:/Steam/steamapps/common/Hearts of Iron IV/")
+    universe = Universe(savefile)
     universe.Load()
 
     for empire in universe.getEmpires():

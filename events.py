@@ -3,6 +3,7 @@
 import naive_parser
 import universe
 import numpy
+from config import Config
 
 
 class Dotdict(dict):
@@ -12,11 +13,11 @@ class Dotdict(dict):
 
 
 class Events:
-    def __init__(self, savefile, hoi4path, parser, theUniverse):
-        self.savefile = savefile
-        self.hoi4path = hoi4path
+    def __init__(self, theUniverse):
+        self.savefile = Config().getSaveData()
+        self.hoi4path = Config().getHoi4Path()
         self.universe = theUniverse
-        self.parser = parser
+        self.parser = Config().getParser()
 
         self.text_start = open("files/converter_events_start.txt").read()
         self.text_planet = open("files/converter_events_planet.txt").read()
