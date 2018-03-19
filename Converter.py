@@ -4,6 +4,7 @@ import os
 import sys
 import shutil
 
+from config import Config
 import naive_parser
 import makeNameList
 import flagconvert
@@ -16,19 +17,10 @@ import logToFile
 
 
 class Converter:
-    def __init__(self, savefileName, hoi4path):
-        self.hoi4path = hoi4path
-
-        self.converterDir = os.path.dirname(os.path.realpath(__file__))
-        self.converterDir = self.converterDir.replace("\\", "/") + "/"
-        print("Running from: " + self.converterDir)
-
-        print("Parsing save file...")
-        self.savefile = naive_parser.ParseSaveFile(savefileName)
-        print("Reading save data...")
-        self.parser = naive_parser.Parser(self.savefile, self.hoi4path)
-        print("Save file parsed.")
-        self.topNations = self.parser.getTopNations()
+    def __init__(self):
+        self.savefile = Config().getSaveData()
+        self.parser = Config().getParser()
+        self.topNations = Config().getParser().getTopNations()
 
     def ConvertEverything(self):
         self.makeFolders()
@@ -39,59 +31,77 @@ class Converter:
         self.convertLocalisation()
         self.convertEvents()
 
-    def CopyMod(self, targetdir):
-        name = "outputMod"
-        shutil.rmtree(targetdir + name, True)
-        print("Copying '" + self.converterDir + name + "' to '" + targetdir + name + "'...")
-        shutil.copytree(self.converterDir + name, targetdir + name)
-        print("Copying '" + self.converterDir + name + ".mod' to '", targetdir + name + ".mod'...")
-        shutil.copyfile(self.converterDir + name + ".mod", targetdir + name + ".mod")
+    def CopyMod(self):
+        createdModPath = Config().getOutputPath()
+        finalPath = Config().getFinalPath()
+        createdModFile = Config().getOutputModFile()
+        finalModFile = Config().getFinalModFile()
+        if not finalPath:
+            return
+
+        shutil.rmtree(finalPath, True)
+        print("Copying '" + createdModPath + "' to '" + finalPath + "'...")
+        shutil.copytree(createdModPath, finalPath)
+        print("Copying '" + createdModFile + "' to '", finalModFile + "'...")
+        shutil.copyfile(createdModFile, finalModFile)
 
     def makeFolders(self):
         print("Laying out folder structure...")
-        shutil.rmtree(self.converterDir + "outputMod", True)
-        shutil.copytree(self.converterDir + "outputMod_base", self.converterDir + "outputMod")
+        converterDir = Config().getConverterDir()
+        shutil.rmtree(Config().getOutputPath(), True)
+        shutil.copytree(Config().getBaseModPath(), Config().getOutputPath())
 
     def getUniverse(self):
         print("Creating the universe...")
-        self.universe = universe.Universe(self.savefile, self.hoi4path)
+        self.universe = universe.Universe(Config().getSaveData(), Config().getHoi4Path())
         print("Establishing history...")
         self.universe.Load()
 
     def convertFlags(self):
-        hoi4flagpath = self.hoi4path + "gfx/flags/"
+        hoi4flagpath = Config().getHoi4Path() + "gfx/flags/"
+        topNations = Config().getParser().getTopNations()
 
-        for topNation in self.topNations:
+        for topNation in topNations:
             print("Creating flag for " + topNation.tag + "...")
             sourceFlagTga = hoi4flagpath + topNation.tag + "_" + topNation.government + ".tga"
             destFlagFolder = "outputMod/flags/convertedflags/"
             flagconvert.CompileFlag(sourceFlagTga, destFlagFolder)
 
     def convertNameLists(self):
-        for topNation in self.topNations:
+        topNations = Config().getParser().getTopNations()
+        for topNation in topNations:
             print("Creating name list for " + topNation.tag + "...")
             destNameListFolder = "outputMod/common/name_lists/"
-            makeNameList.MakeNameList(topNation.tag, self.hoi4path, destNameListFolder)
+            makeNameList.MakeNameList(topNation.tag, Config().getHoi4Path(), destNameListFolder)
 
     def convertLocalisation(self):
         print("Converting localisation...")
-        self.localiser = localisation.Localisation(self.savefile, self.hoi4path, self.parser, self.universe)
+
+        savefile = Config().getSaveData()
+        parser = Config().getParser()
+        hoi4path = Config().getHoi4Path()
+
+        localiser = localisation.Localisation(savefile, hoi4path, parser, self.universe)
         print("Writing localisation...")
-        self.localiser.writeLocalisation()
-        self.localiser.writeSyncedLocalisation()
+        localiser.writeLocalisation()
+        localiser.writeSyncedLocalisation()
 
     def convertEvents(self):
         print("Creating events...")
-        self.events = events.Events(self.savefile, self.hoi4path, self.parser, self.universe)
+
+        savefile = Config().getSaveData()
+        parser = Config().getParser()
+        hoi4path = Config().getHoi4Path()
+
+        self.events = events.Events(savefile, hoi4path, parser, self.universe)
         self.events.makeEvents()
 
 
 if __name__ == "__main__":
     print("BEGINNING CONVERSION")
-    config = readConfig.Config()
 
-    converter = Converter(config.savefile, config.hoi4path)
+    converter = Converter()
     converter.ConvertEverything()
-    converter.CopyMod(config.targetdir)
+    converter.CopyMod()
 
     print("ALL DONE!")

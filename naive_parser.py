@@ -192,15 +192,22 @@ class Parser:
         self.pops = {}
         self.factories = {}
         self.warscore = {}
+        self.stateCount = {}
+        self.totalStateCount = 0
 
         states = drill(savefile, "states")
         for state in states:
+            self.totalStateCount += 1
             owner = unquote(drill(savefile, "states", state, "owner"))
             manpower = drill(savefile, "states", state, "manpower_pool", "total")
             if owner in self.pops:
                 self.pops[unquote(owner)] += int(manpower)
             else:
                 self.pops[unquote(owner)] = int(manpower)
+            if owner in self.stateCount:
+                self.stateCount[unquote(owner)] += 1
+            else:
+                self.stateCount[unquote(owner)] = 1
 
             buildingtypes = drill(savefile, "states", state, "buildings")
             for buildingtype in buildingtypes:
@@ -314,6 +321,7 @@ class Parser:
 
         self.topNations = []
         self.smallNations = []
+        claimedStates = 0
         for nation in sorted(self.factories, key=tweakedsort, reverse=True):
 
             ndata = Nation(nation)
@@ -335,10 +343,17 @@ class Parser:
             if oldtag:
                 ndata.tag = oldtag
 
-            if len(self.topNations) > 6 or tweakedsort(nation) < 0.1:
-                self.smallNations.append(ndata)
-            else:
+            claimedStates += self.stateCount[nation]
+            print(ndata)
+            print(self.stateCount[nation])
+            print(claimedStates)
+            print(self.totalStateCount/10)
+
+            if len(self.topNations) < 6 and (tweakedsort(nation) > 0.1 or claimedStates < self.totalStateCount/10):
                 self.topNations.append(ndata)
+                print("TOP")
+            else:
+                self.smallNations.append(ndata)
 
         def getIndPerCapita(a):
             return 1000 * (self.factories[a] / self.pops[a])
