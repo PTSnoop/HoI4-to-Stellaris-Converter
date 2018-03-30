@@ -25,6 +25,8 @@ class Config(BorgSingleton):
         self.hoi4ModPath = naive_parser.unquote(naive_parser.drill(config, "HoI4ModDirectory"))
         self.stellarisModPath = naive_parser.unquote(naive_parser.drill(config, "StellarisModdirectory"))
 
+        self.defconResults = naive_parser.unquote(naive_parser.drill(config, "defconResults"))
+
         self.modName = "outputMod"
 
         self.baseModPath = self.converterDir + self.modName + "_base/"
@@ -84,9 +86,9 @@ class Config(BorgSingleton):
 
     def getModdedHoi4File(self, targetPath):
         # TODO make this work with multiple mods at the same time
-        pathThatExists = self.getHoi4ModPath() + targetPath
+        pathThatExists = self.hoi4ModPath + targetPath
         if os.path.exists(pathThatExists): return pathThatExists
-        pathThatExists = self.getHoi4Path() + targetPath
+        pathThatExists = self.hoi4Path + targetPath
         if os.path.exists(pathThatExists): return pathThatExists
         print("Warning: Could not find HoI4 file "+targetPath)
         return ""
@@ -104,3 +106,4 @@ class Config(BorgSingleton):
 
     def getSaveData(self):      return self.savefile
     def getParser(self):        return self.parser
+    def getDefconResults(self): return self.defconResults

@@ -194,4 +194,4 @@ def getClimates():
 
 
 if __name__ == "__main__":
-    c = getColours()
+    c = getStates()

@@ -1,8 +1,33 @@
 configuration = {
  
     savefile = "D:\Paradox Interactive\Hearts of Iron IV\save games\postwar_1948_06_16_01.hoi4"
-    #savefile = "CONVERTTHIS.hoi4"
-    HoI4directory = "C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV"
+    HoI4directory = "D:\Steam\steamapps\common\Hearts of Iron IV"
     StellarisModdirectory = "D:\Paradox Interactive\Stellaris\mod"
 
+    defconResults = {
+        ENG = {
+            kills = 121.3
+            deaths = 70.7
+            collateral = 0.0
+            survivors = 29.3
+            nukes = 4
+            score = 171
+        }
+        SOV = {
+            kills = 87.9
+            deaths = 74.7
+            collateral = 0.1
+            survivors = 25.3
+            nukes = 2
+            score = 100
+        }
+        USA = {
+            kills = 21.3
+            deaths = 85.2
+            collateral = 0.0
+            survivors = 14.8
+            nukes = 5
+            score = -42
+        }
+    }
 }

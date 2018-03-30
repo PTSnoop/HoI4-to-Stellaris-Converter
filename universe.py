@@ -106,11 +106,46 @@ class Universe:
         currentDate = currentDate.replace('"', '')
         self.currentDate = [int(n) for n in currentDate.split(".")]
 
+        self.defcon = Config().defconResults
+        if self.defcon:
+            self.CreateEventsFromDefcon()
+        else:
+            self.CreateEvents()
+
+    def CreateEventsFromDefcon(self):
+        self.events = []
+        climateChange = 0
+        self.earthOwnedBy = ""
+        self.climateAuthority = ""
+        self.earthType = "pc_continental"
+
+        self.empires = []
+        for nation in self.topNations:
+            self.empires.append(Empire(nation))
+
+        self.nuclearWar = 2
+
+        print(self.defcon)
+        print(self.defcon.keys())
+
+        nuclearTags = []
+        for empire in self.empires:
+            if empire.tag in self.defcon.keys():
+                empire.nuclear = True
+                # No need to add population penalties here - the parser's already taken care of that
+                nuclearTags.append(empire.tag)
+
+        self.events.append(Event("DefconColdWar", nuclearTags[0], nuclearTags[1]))
+        self.events.append(Event("DefconNuclearWar"))
+
+        self.AddClimateEvents()
+
+    def CreateEvents(self):
         self.events = []
         climateChange = 0
         self.nuclearWar = 0
         self.earthOwnedBy = ""
-        climateAuthority = ""
+        self.climateAuthority = ""
         self.earthType = "pc_continental"
 
         self.empires = []
@@ -120,7 +155,7 @@ class Universe:
         if len(self.empires) == 1:
             self.events.append(Event("Hegemon", self.empires[0].tag))
             self.earthOwnedBy = self.empires[0].longTag()
-            climateAuthority = self.empires[0].tag
+            self.climateAuthority = self.empires[0].tag
 
         elif self.empires[0].score / self.totalScore > 0.5:  # largest nation has 50%
 
@@ -179,8 +214,11 @@ class Universe:
             else:  # everyone's tiny
                 self.events.append(Event("Squabbling"))
 
+        self.AddClimateEvents()
+
+    def AddClimateEvents(self):
         if self.gini > 0.4:
-            if climateAuthority:
+            if self.climateAuthority:
                 self.events.append(Event("GovernmentClimateControl", climateAuthority))
             elif self.gini > 0.6:
                 climateChange = 2
@@ -316,7 +354,54 @@ class Universe:
 
         yearLogScale = [x - logNudge for x in yearLogScale]
 
+        defconResultsText = ""
+        if self.defcon:
+            def scoreSort(tag):
+                try:
+                    return self.defcon[tag].score
+                except AttributeError:
+                    return 0
+                    
+            survivorTags = []
+            okTags = []
+            oblitTags = []
+            for tag in sorted(self.defcon, key=scoreSort):
+                if not type(tag) is str: continue
+                print(tag)
+                print(self.defcon[tag])
+                survivors = float(naive_parser.drill(self.defcon, tag, "survivors"))
+                if survivors > 80:
+                    survivorTags.append(tag)
+                elif survivors > 40:
+                    okTags.append(tag)
+                else:
+                    oblitTags.append(tag)
+
+            # We've only got 3 "survived" messages and 2 "is basically ok" messages.
+            while len(survivorTags) > 3:
+                okTags.append(survivorTags.pop())
+            while len(okTags) > 2:
+                okTags.pop()
+                
+            for n in range(len(survivorTags)):
+                defconResultsText += self.eventStrings["DefconSurvive"+str(n+1)] + " "
+                defconResultsText = defconResultsText.replace("&NATION_1&", tagToName[survivorTags[n]])
+
+            for n in range(len(okTags)):
+                defconResultsText += self.eventStrings["DefconOk"+str(n+1)] + " "
+                defconResultsText = defconResultsText.replace("&NATION_1&", tagToName[okTags[n]])
+
+            if len(oblitTags) == 1:
+                defconResultsText += self.eventStrings["DefconObliterated1"] + " "
+                defconResultsText = defconResultsText.replace("&NATION_1&", tagToName[oblitTags[0]])
+            elif len(oblitTags) > 1:
+                for n in range(len(oblitTags)-1):
+                    defconResultsText += tagToName[oblitTags[n]] + ", "
+                defconResultsText += "and " + self.eventStrings["DefconObliteratedPl1"]
+                defconResultsText = defconResultsText.replace("&NATION_1&", tagToName[oblitTags[-1]])
+
         historyString = ""
+
         for e in range(len(realEvents)):
             year = int(numpy.floor(startYear + yearLogScale[e]))
             yearJump = (yearLogScale[e + 1] - yearLogScale[e]) // 2
@@ -334,8 +419,17 @@ class Universe:
             replaces["&DECADE&"] = str(year // 10) + "0s"
             replaces["&NATION_1&"] = tagToName[event.tags[0]] if len(event.tags) > 0 else ""
             replaces["&NATION_2&"] = tagToName[event.tags[1]] if len(event.tags) > 1 else ""
+            replaces["&NATION_3&"] = tagToName[event.tags[2]] if len(event.tags) > 2 else ""
+            replaces["&NATION_4&"] = tagToName[event.tags[3]] if len(event.tags) > 3 else ""
+            replaces["&NATION_5&"] = tagToName[event.tags[4]] if len(event.tags) > 4 else ""
+            replaces["&NATION_6&"] = tagToName[event.tags[5]] if len(event.tags) > 5 else ""
             replaces["&NATION_1_ADJ&"] = tagToAdj[event.tags[0]] if len(event.tags) > 0 else ""
             replaces["&NATION_2_ADJ&"] = tagToAdj[event.tags[1]] if len(event.tags) > 1 else ""
+            replaces["&NATION_3_ADJ&"] = tagToAdj[event.tags[2]] if len(event.tags) > 2 else ""
+            replaces["&NATION_4_ADJ&"] = tagToAdj[event.tags[3]] if len(event.tags) > 3 else ""
+            replaces["&NATION_5_ADJ&"] = tagToAdj[event.tags[4]] if len(event.tags) > 4 else ""
+            replaces["&NATION_6_ADJ&"] = tagToAdj[event.tags[5]] if len(event.tags) > 5 else ""
+            replaces["&DEFCONRESULTS&"] = defconResultsText
             if len(cityNames) > 0:
                 replaces["&RANDOM_SMALL_CITY&"] = numpy.random.choice(cityNames)
             else:

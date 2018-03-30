@@ -34,11 +34,8 @@ def CompileFlag(sourcepath, destFolder):
     filename = os.path.splitext(os.path.basename(sourcepath))[0]
 
     if not os.path.exists(sourcepath):
-        sourceSplit = sourcepath.split("/")
-        sourceSplit[-1] = sourceSplit[-1][:3] + ".tga"
-        basesourcepath = "/".join(sourceSplit)
-        print("WARNING: Could not find \"" + sourcepath + "\". Falling back to \"" + basesourcepath + "\".")
-        sourcepath = basesourcepath
+        print("WARNING: Could not find \"" + sourcepath + "\".")
+        return
 
     image = PythonMagick.Image(sourcepath)
     imagetype = image.type

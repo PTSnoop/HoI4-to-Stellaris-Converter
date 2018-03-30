@@ -7,7 +7,7 @@ import re
 from collections import defaultdict
 
 import properties
-
+import config
 
 class Nation:
     def __init__(self, tag):
@@ -303,6 +303,18 @@ class Parser:
             factorymax = 1
         if (scoremax < 1):
             scoremax = 1
+
+        self.defcon = config.Config().getDefconResults()
+        if self.defcon:
+            for dtag in self.defcon:
+                if dtag not in self.factories:
+                    continue
+                multiplier = float(drill(self.defcon, dtag, "survivors"))
+                multiplier /= 100.0
+                multiplier = 0.50 + (multiplier*0.50) # Let's not be too mean
+                self.pops[dtag] *= multiplier
+                self.factories[dtag] *= multiplier
+
 
         def tweakedsort(a):
             popproportion = float(self.pops[a]) / popmax

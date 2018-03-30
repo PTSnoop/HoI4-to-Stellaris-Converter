@@ -61,7 +61,12 @@ class Converter:
 
         for topNation in topNations:
             print("Creating flag for " + topNation.tag + "...")
-            sourceFlagTga = Config().getModdedHoi4File(hoi4flagpath + topNation.tag + "_" + topNation.government + ".tga")
+            sourcepath = hoi4flagpath + topNation.tag + "_" + topNation.government + ".tga"
+            sourceFlagTga = Config().getModdedHoi4File(sourcepath)
+            if not sourceFlagTga:
+                basesourcepath = hoi4flagpath + topNation.tag + ".tga"
+                print("WARNING: Could not find \"" + sourcepath + "\". Falling back to \"" + basesourcepath + "\".")
+                sourceFlagTga = Config().getModdedHoi4File(basesourcepath)
             destFlagFolder = Config().getOutputPath() + "flags/convertedflags/"
             flagconvert.CompileFlag(sourceFlagTga, destFlagFolder)
 
