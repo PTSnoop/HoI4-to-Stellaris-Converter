@@ -293,6 +293,12 @@ class Parser:
                 "ideology")
             ideologies[country] = ideology
 
+        self.factions = {}
+        for faction in savefile["faction"]:
+            factionName = unquote(drill(faction, "name"))
+            factionMembers = drill(faction, "members", "").split(" ")
+            self.factions[factionName.lower()] = factionMembers
+
         popmax = float(self.pops[max(self.pops, key=self.pops.get)])
         factorymax = float(self.factories[max(self.factories, key=self.factories.get)])
         scoremax = float(self.warscore[max(self.warscore, key=self.warscore.get)])
@@ -307,13 +313,22 @@ class Parser:
         self.defcon = config.Config().getDefconResults()
         if self.defcon:
             for dtag in self.defcon:
-                if dtag not in self.factories:
-                    continue
+                if not type(dtag) is str: continue
                 multiplier = float(drill(self.defcon, dtag, "survivors"))
                 multiplier /= 100.0
-                multiplier = 0.50 + (multiplier*0.50) # Let's not be too mean
-                self.pops[dtag] *= multiplier
-                self.factories[dtag] *= multiplier
+                multiplier = 0.40 + (multiplier*0.60) # Let's not be too mean
+                if dtag in self.factories:
+                    # nation tag
+                    self.pops[dtag] *= multiplier
+                    self.factories[dtag] *= multiplier
+                elif dtag.lower() in self.factions:
+                    # faction name
+                    factionTags = self.factions[dtag.lower()]
+                    for factionTag in factionTags:
+                        self.pops[factionTag] *= multiplier
+                        self.factories[factionTag] *= multiplier
+                else:
+                    print("Warning: "+dtag+" not found. Please make sure you've spelled it correctly.")
 
 
         def tweakedsort(a):

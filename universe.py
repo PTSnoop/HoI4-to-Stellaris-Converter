@@ -125,9 +125,6 @@ class Universe:
 
         self.nuclearWar = 2
 
-        print(self.defcon)
-        print(self.defcon.keys())
-
         nuclearTags = []
         for empire in self.empires:
             if empire.tag in self.defcon.keys():
@@ -135,7 +132,7 @@ class Universe:
                 # No need to add population penalties here - the parser's already taken care of that
                 nuclearTags.append(empire.tag)
 
-        self.events.append(Event("DefconColdWar", nuclearTags[0], nuclearTags[1]))
+        self.events.append(Event("DefconColdWar"))
         self.events.append(Event("DefconNuclearWar"))
 
         self.AddClimateEvents()
@@ -367,8 +364,6 @@ class Universe:
             oblitTags = []
             for tag in sorted(self.defcon, key=scoreSort):
                 if not type(tag) is str: continue
-                print(tag)
-                print(self.defcon[tag])
                 survivors = float(naive_parser.drill(self.defcon, tag, "survivors"))
                 if survivors > 80:
                     survivorTags.append(tag)
@@ -382,23 +377,32 @@ class Universe:
                 okTags.append(survivorTags.pop())
             while len(okTags) > 2:
                 okTags.pop()
+
+            def nameOfTagOrFaction(name):
+                if name in tagToName:
+                    return tagToName[name]
+                return "the "+name.title()
                 
             for n in range(len(survivorTags)):
+                nationName = "the "+survivorTags[n]
+                if survivorTags[n] in tagToName:
+                    nationName = tagToName[survivorTags[n]]
+
                 defconResultsText += self.eventStrings["DefconSurvive"+str(n+1)] + " "
-                defconResultsText = defconResultsText.replace("&NATION_1&", tagToName[survivorTags[n]])
+                defconResultsText = defconResultsText.replace("&NATION_1&", nameOfTagOrFaction(survivorTags[n]))
 
             for n in range(len(okTags)):
                 defconResultsText += self.eventStrings["DefconOk"+str(n+1)] + " "
-                defconResultsText = defconResultsText.replace("&NATION_1&", tagToName[okTags[n]])
+                defconResultsText = defconResultsText.replace("&NATION_1&", nameOfTagOrFaction(okTags[n]))
 
             if len(oblitTags) == 1:
                 defconResultsText += self.eventStrings["DefconObliterated1"] + " "
-                defconResultsText = defconResultsText.replace("&NATION_1&", tagToName[oblitTags[0]])
+                defconResultsText = defconResultsText.replace("&NATION_1&", nameOfTagOrFaction(oblitTags[0]))
             elif len(oblitTags) > 1:
                 for n in range(len(oblitTags)-1):
-                    defconResultsText += tagToName[oblitTags[n]] + ", "
+                    defconResultsText += nameOfTagOrFaction(oblitTags[n]) + ", "
                 defconResultsText += "and " + self.eventStrings["DefconObliteratedPl1"]
-                defconResultsText = defconResultsText.replace("&NATION_1&", tagToName[oblitTags[-1]])
+                defconResultsText = defconResultsText.replace("&NATION_1&", nameOfTagOrFaction(oblitTags[-1]))
 
         historyString = ""
 

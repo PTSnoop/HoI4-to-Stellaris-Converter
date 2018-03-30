@@ -5,15 +5,15 @@ configuration = {
     StellarisModdirectory = "D:\Paradox Interactive\Stellaris\mod"
 
     defconResults = {
-        ENG = {
+        allies = {
             kills = 121.3
             deaths = 70.7
             collateral = 0.0
-            survivors = 29.3
+            survivors = 19.3
             nukes = 4
             score = 171
         }
-        SOV = {
+        comintern = {
             kills = 87.9
             deaths = 74.7
             collateral = 0.1
@@ -21,7 +21,7 @@ configuration = {
             nukes = 2
             score = 100
         }
-        USA = {
+        axis = {
             kills = 21.3
             deaths = 85.2
             collateral = 0.0
