@@ -1,9 +1,15 @@
 configuration = {
  
+    # The path to the save file to be converted.
     savefile = "D:\Paradox Interactive\Hearts of Iron IV\save games\postwar_1948_06_16_01.hoi4"
+
+    # The path to your Hearts of Iron 4 installation, if you're not using a mod - or the path to your mod files, if you are.
     HoI4directory = "D:\Steam\steamapps\common\Hearts of Iron IV"
+
+    # The path to your Stellaris mod folder, to copy the new mod into.
     StellarisModdirectory = "D:\Paradox Interactive\Stellaris\mod"
 
+    # The results from DEFCON, if you've also been using the HoI4 to DEFCON converter. Each entry can be the name of a faction, or a country tag.
     defconResults = {
         allies = {
             kills = 121.3
