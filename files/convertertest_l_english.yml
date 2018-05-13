@@ -9,7 +9,10 @@ l_english:
  EMPIRE_DESIGN_converter_humans_desc:0 "Having settled its differences in the field of battle, humanity now looks towards the stars."
  
  opinion_blew_up_the_planet:0 "Blew up Planet Earth"
- 
+
+ gov_generated_on_game_start:0 "Generated on Game Start"
+ gov_generated_on_game_start_desc:0 "Generated on Game Start" 
+
  converted_0_democratic:0 "Well-Functioning Democracy"
  converted_1_democratic:0 "Regulatory Capture"
  converted_2_democratic:0 "Pork-barrel Spending"

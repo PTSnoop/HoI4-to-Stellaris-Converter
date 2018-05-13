@@ -22,8 +22,9 @@ converter_humans = {
 	room = "personality_metalheads_room"
 	
 	authority = "auth_dictatorial"
-	civics = { "civic_shadow_council" "civic_efficient_bureaucracy" }
-	government = gov_irenic_dictatorship
+	#civics = { "civic_shadow_council" "civic_efficient_bureaucracy" }
+	civics = { }
+	government = gov_generated_on_game_start
     advisor_voice_type="l_english"
 	
 	ethic = "ethic_xenophobe"

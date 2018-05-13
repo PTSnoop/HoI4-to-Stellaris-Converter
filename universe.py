@@ -279,10 +279,21 @@ class Universe:
         cityNames = getCountryNames.getCityNames()
         countryNames = getCountryNames.getCountryNames()
         for empire in self.topNations + self.smallNations:
-            name = countryNames[empire.longTag() + "_DEF"]
+            tagBlank = empire.longTag()
+            tagDef = empire.longTag() + "_DEF"
+            tagAdj = empire.longTag() + "_ADJ"
+
+            if tagDef in countryNames:
+                name = countryNames[tagDef]
+            else:
+                name = countryNames[tagBlank]
             name = name.replace("The", "the")
             tagToName[empire.tag] = name
-            adj = countryNames[empire.longTag() + "_ADJ"]
+
+            if tagAdj in countryNames:
+                adj = countryNames[tagAdj]
+            else:
+                adj = countryNames[tagBlank]
             tagToAdj[empire.tag] = adj
 
         numpy.random.seed(self.seed)
