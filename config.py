@@ -25,7 +25,11 @@ class Config(BorgSingleton):
         self.hoi4ModPath = naive_parser.unquote(naive_parser.drill(config, "HoI4ModDirectory"))
         self.stellarisModPath = naive_parser.unquote(naive_parser.drill(config, "StellarisModdirectory"))
 
-        self.defconResults = naive_parser.unquote(naive_parser.drill(config, "defconResults"))
+        self.useDefconResults = naive_parser.unquote(naive_parser.drill(config, "useDefconResults"))
+        if self.useDefconResults == "y" or self.useDefconResults == "yes":
+            self.defconResults = naive_parser.unquote(naive_parser.drill(config, "defconResults"))
+        else:
+            self.defconResults = False
 
         self.modName = "outputMod"
 

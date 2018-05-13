@@ -11,7 +11,6 @@ import flagconvert
 import localisation
 import universe
 import events
-import readConfig
 
 import logToFile
 
