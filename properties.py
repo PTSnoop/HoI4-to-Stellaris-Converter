@@ -153,11 +153,11 @@ def getClimates():
             temperature = float(maxTemp) - float(minTemp)
             yearTemperatures.append(temperature)
 
-            lightRain = naive_parser.drill(period, "rain_light")
-            heavyRain = naive_parser.drill(period, "rain_heavy")
-            snow = naive_parser.drill(period, "snow")
-            blizzard = naive_parser.drill(period, "blizzard")
-            sandstorm = naive_parser.drill(period, "sandstorm")
+            lightRain = naive_parser.unquote(naive_parser.drill(period, "rain_light"))
+            heavyRain = naive_parser.unquote(naive_parser.drill(period, "rain_heavy"))
+            snow = naive_parser.unquote(naive_parser.drill(period, "snow"))
+            blizzard = naive_parser.unquote(naive_parser.drill(period, "blizzard"))
+            sandstorm = naive_parser.unquote(naive_parser.drill(period, "sandstorm"))
 
             yearRain.append(float(lightRain) + float(heavyRain) * 2)
             yearSnow.append(float(snow) + float(blizzard) * 3)

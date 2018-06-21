@@ -214,6 +214,7 @@ class Universe:
         self.AddClimateEvents()
 
     def AddClimateEvents(self):
+        climateChange = 0
         if self.gini > 0.4:
             if self.climateAuthority:
                 self.events.append(Event("GovernmentClimateControl", climateAuthority))
