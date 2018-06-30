@@ -17,7 +17,13 @@ class Config(BorgSingleton):
         self.configfile = naive_parser.ParseSaveFile("configuration.txt")
         config = naive_parser.drill(self.configfile, "configuration")
 
-        self.converterDir = self.makeSanePath(os.path.dirname(os.path.realpath(__file__)))
+        if getattr( sys, 'frozen', False ) :
+            # running in a bundle
+            self.converterDir = self.makeSanePath(os.path.dirname(sys.executable))
+        else :
+            # running live
+            self.converterDir = self.makeSanePath(os.path.dirname(os.path.realpath(__file__)))
+        
         print("Running from: "+self.converterDir)
 
         self.savefileName = naive_parser.unquote(naive_parser.drill(config, "savefile"))
